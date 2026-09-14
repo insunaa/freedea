@@ -1,0 +1,84 @@
+# Group data response vectors
+# Source: midea-msmart @ d7db53bc470d3751b3f29a5ca2fedacdd4d14b70 msmart/device/AC/test_command.py TestGroupDataResponse
+# Format: column-0 line = vector name; indented `field value` lines follow.
+# Hex values are lowercase. Do not edit by hand; re-run the extractor.
+
+energy_1
+  # test_energy_usage
+  frame aa1fac00000000000303c121014400067920000000000000000000000000aabf
+  expect_total 679.2
+  expect_current 0
+  expect_realtime 0
+
+energy_2
+  # test_energy_usage
+  frame aa20ac00000000000203c121014400564a02640000000014ae0000000000041a22
+  expect_total 5650.02
+  expect_current 1514.0
+  expect_realtime 0
+
+energy_none
+  # test_energy_usage; zeros -> None
+  frame aa20ac00000000000303c1210144000000000000000000000000000000000843bc
+  expect_total none
+  expect_current none
+  expect_realtime none
+
+energy_binary
+  # test_binary_energy_usage
+  frame aa22ac00000000000803c1210144000005e00000000000000006000aeb000000487a5e
+  expect_total 150.4
+  expect_current 0.6
+  expect_realtime 279.5
+
+humidity
+  # test_humidity
+  frame aa20ac00000000000303c12101453f546c005d0a000000de1f0000ba9a0004af9c
+  expect_humidity 63
+
+humidity_none
+  # test_humidity; unsupported
+  frame aa1fac00000000000303c1210145000000000000000000000000000000001aed
+  expect_humidity none
+
+defrost_true
+  # test_defrost; raw Group5 payload
+  payload c12101451e4f2b5e003c01000000692900cf7e0001bb38
+  expect_defrost 1
+
+defrost_false
+  # test_defrost
+  payload c12101451e4dcf5e611f00000052ad2900cf7e0002
+  expect_defrost 0
+
+group1
+  # test_group1_response
+  payload c10000411c1d0001e800472666582d0000000000
+  expect_freq 28
+  expect_target_freq 29
+  expect_current 1
+  expect_voltage 232
+  expect_indoor 20.5
+  expect_indoor_coil 4.0
+  expect_outdoor_coil 26.0
+  expect_outdoor 19.0
+  expect_tp 45
+
+group2
+  # test_group2_response
+  payload c100004234350000100000000000000000000000
+  expect_target_fan 416
+  expect_fan 424
+  expect_pump 1
+
+group7
+  # test_group7_response; payload[10]+256*payload[11]
+  payload c10000470000000000000d010000000000000000
+  expect_power 269
+
+group11
+  # test_group11_response
+  payload c100004b0064006400486400f000000000000000
+  expect_h_louvers 72
+  expect_v_louvers 240
+

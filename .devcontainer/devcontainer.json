@@ -1,0 +1,20 @@
+{
+  "name": "Xteink Midea controller",
+  "build": {
+    // Context is the repo root so the Dockerfile can COPY versions.env.
+    "context": "..",
+    "dockerfile": ".devcontainer/Dockerfile"
+  },
+  "userEnvProbe": "none",
+  "containerUser": "ubuntu",
+  "remoteUser": "ubuntu",
+  "postCreateCommand": "git submodule update --init --recursive"
+  // Flashing only: uncomment the mounts block below to pass the X4 serial
+  // device through (rebuild the container afterwards). Omitted by default so
+  // the container also starts on hosts with no device attached; see
+  // docs/devcontainer-setup.md §7.
+  //,
+  // "mounts": [
+  //   "source=/dev/ttyACM0,target=/dev/ttyACM0,type=bind"
+  // ]
+}

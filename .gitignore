@@ -1,0 +1,24 @@
+# PlatformIO
+.pio/
+platformio.local.ini
+
+# Generated build artifacts
+*.generated.h
+docs/Freedea-User-Manual.pdf
+dist/
+lib/*/test/host/build/
+
+# Local scratch assets (reference clones, venvs) — see docs/devcontainer-setup.md
+tmp/
+
+# Agent–user working docs (WORKPLAN.md, … in .AGENTS/; AGENTS.md stays on
+# disk at the root for agent-rule auto-load but is never published)
+.AGENTS/
+AGENTS.md
+
+# Python bytecode (extract_vectors.py etc. run from the tree)
+__pycache__/
+
+# OS / editor cruft
+.Trash-0/
+.DS_Store

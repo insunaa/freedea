@@ -1,0 +1,149 @@
+# State response vectors
+# Source: midea-msmart @ d7db53bc470d3751b3f29a5ca2fedacdd4d14b70 msmart/device/AC/test_command.py TestStateResponse
+# Format: column-0 line = vector name; indented `field value` lines follow.
+# Hex values are lowercase. Do not edit by hand; re-run the extractor.
+
+state_v2
+  # test_message_v2
+  frame aa22ac00000000000303c0014566000000300010045eff00000000000000000069fdb9
+  expect_power_on 1
+  expect_target 21.0
+  expect_operational_mode 2
+  expect_fan_speed 102
+  expect_swing_mode 0
+  expect_turbo 0
+  expect_eco 1
+  expect_sleep 0
+  expect_fahrenheit 1
+  expect_indoor 22.0
+  expect_outdoor none
+  expect_filter_alert 0
+  expect_display_on 1
+  expect_error_code 0
+  expect_follow_me 0
+  expect_purifier 0
+  expect_aux_heat 0
+  expect_independent_aux_heat 0
+  expect_target_humidity 0
+  expect_freeze_protection 0
+
+state_v3
+  # test_message_v3; payload tail validated as crc8 OR checksum
+  frame aa23ac00000000000303c00145660000003c0010045c6b20000000000000000000020d79
+  expect_power_on 1
+  expect_target 21.0
+  expect_operational_mode 2
+  expect_fan_speed 102
+  expect_swing_mode 12
+  expect_turbo 0
+  expect_eco 1
+  expect_sleep 0
+  expect_fahrenheit 1
+  expect_indoor 21.0
+  expect_outdoor 28.5
+  expect_filter_alert 1
+  expect_display_on 1
+  expect_error_code 0
+  expect_follow_me 0
+  expect_purifier 0
+  expect_aux_heat 0
+  expect_independent_aux_heat 0
+  expect_target_humidity 0
+  expect_freeze_protection 0
+
+state_v3_crc_tail
+  # test_message_checksum; shorter-than-expected V3 state, tail is crc8
+  frame aa1eac00000000000003c0004b1e7f7f000000000069630000000000000d33
+  expect_power_on 0
+  expect_target 27.0
+  expect_operational_mode 2
+  expect_fan_speed 30
+  expect_swing_mode 0
+  expect_turbo 0
+  expect_eco 0
+  expect_sleep 0
+  expect_fahrenheit 0
+  expect_indoor 27.5
+  expect_outdoor 24.5
+  expect_filter_alert 0
+  expect_display_on 1
+  expect_error_code 0
+  expect_follow_me 0
+  expect_purifier 0
+  expect_aux_heat 0
+  expect_independent_aux_heat 0
+  expect_target_humidity none
+  expect_freeze_protection none
+
+precision_1
+  # test_message_additional_precision; extra precision bits
+  frame aa23ac00000000000203c00188647f7f000000000063450c0056190000000000000497c3
+  expect_power_on 1
+  expect_target 24.0
+  expect_operational_mode 4
+  expect_fan_speed 100
+  expect_swing_mode 0
+  expect_turbo 0
+  expect_eco 0
+  expect_sleep 0
+  expect_fahrenheit 0
+  expect_indoor 24.6
+  expect_outdoor 9.5
+  expect_filter_alert 0
+  expect_display_on 1
+  expect_error_code 25
+  expect_follow_me 0
+  expect_purifier 0
+  expect_aux_heat 0
+  expect_independent_aux_heat 0
+  expect_target_humidity 0
+  expect_freeze_protection 0
+
+precision_2
+  # test_message_additional_precision; extra precision bits
+  frame aa23ac00000000000203c00188647f7f000000000067450c00750000000000000001a3b0
+  expect_power_on 1
+  expect_target 24.0
+  expect_operational_mode 4
+  expect_fan_speed 100
+  expect_swing_mode 0
+  expect_turbo 0
+  expect_eco 0
+  expect_sleep 0
+  expect_fahrenheit 0
+  expect_indoor 26.5
+  expect_outdoor 9.7
+  expect_filter_alert 0
+  expect_display_on 1
+  expect_error_code 0
+  expect_follow_me 0
+  expect_purifier 0
+  expect_aux_heat 0
+  expect_independent_aux_heat 0
+  expect_target_humidity 0
+  expect_freeze_protection 0
+
+precision_3
+  # test_message_additional_precision; extra precision bits
+  frame aa23ac00000000000203c00188647f7f000080000064450c00501d00000000000001508e
+  expect_power_on 1
+  expect_target 24.0
+  expect_operational_mode 4
+  expect_fan_speed 100
+  expect_swing_mode 0
+  expect_turbo 0
+  expect_eco 0
+  expect_sleep 0
+  expect_fahrenheit 0
+  expect_indoor 25.0
+  expect_outdoor 9.5
+  expect_filter_alert 0
+  expect_display_on 1
+  expect_error_code 29
+  expect_follow_me 1
+  expect_purifier 0
+  expect_aux_heat 0
+  expect_independent_aux_heat 0
+  expect_target_humidity 0
+  expect_freeze_protection 0
+

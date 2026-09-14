@@ -1,0 +1,20 @@
+# Freedea app style: 2-space indent, 120 columns (matches the wakeink
+# reference app and the AGENTS.md examples). The vendored SDK keeps its own
+# formatting — bin/clang-format-fix never touches submodule contents.
+BasedOnStyle: LLVM
+AccessModifierOffset: -2
+AllowShortFunctionsOnASingleLine: Inline
+AllowShortIfStatementsOnASingleLine: WithoutElse
+AllowShortLoopsOnASingleLine: false
+BinPackArguments: true
+BinPackParameters: true
+BreakBeforeBraces: Attach
+ColumnLimit: 120
+ContinuationIndentWidth: 4
+IndentCaseLabels: true
+IndentWidth: 2
+PointerAlignment: Left
+SpaceAfterTemplateKeyword: true
+Standard: c++20
+TabWidth: 2
+UseTab: Never

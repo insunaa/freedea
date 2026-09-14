@@ -1,0 +1,3 @@
+[submodule "vendor/freeink-sdk"]
+	path = vendor/freeink-sdk
+	url = https://github.com/Free-Ink/freeink-sdk

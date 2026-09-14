@@ -1,0 +1,6 @@
+# Vendored sources (nayuki qrcodegen, see WORKPLAN 3.5a) keep upstream
+# formatting. This nested config disables clang-format for the whole subtree,
+# so bin/clang-format-fix and the CI format check skip it — same convention
+# as lib/WireGuard/.clang-format.
+DisableFormat: true
+SortIncludes: Never

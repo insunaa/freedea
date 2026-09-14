@@ -1,0 +1,32 @@
+name: Build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build-x4:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Verify pins match versions.env
+        run: |
+          set -eu
+          . ./versions.env
+          grep -q "releases/download/${PIOARDUINO_VERSION}/platform-espressif32.zip" platformio.ini
+          grep -q "ArduinoJson @ ${ARDUINOJSON_VERSION}" platformio.ini
+          # gitlink (tree entry) vs the mirrored ref; works without checkout
+          test "$(git rev-parse HEAD:vendor/freeink-sdk)" = "$FREEINK_SDK_REF"
+      - name: Install PlatformIO (pinned in versions.env)
+        run: |
+          set -eu
+          . ./versions.env
+          python -m pip install --upgrade pip "platformio==${PLATFORMIO_VERSION}"
+      - name: Build firmware (dev env x4 + release env x4_release)
+        run: pio run -e x4 -e x4_release

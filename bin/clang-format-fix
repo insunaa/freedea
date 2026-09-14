@@ -1,0 +1,33 @@
+#!/usr/bin/env sh
+# clang-format wrapper.
+#   ./bin/clang-format-fix       format every git-tracked C/C++ file
+#   ./bin/clang-format-fix -g    format only git-changed or untracked C/C++ files
+#
+# The vendor/ submodule is a gitlink, so its contents never appear in the
+# file lists — vendored code keeps its own formatting.
+set -u
+cd "$(dirname "$0")/.." || exit 1
+
+exts='\.(c|cc|cpp|cxx|h|hpp|hh)$'
+
+list() {
+  if [ "${1:-}" = "-g" ]; then
+    {
+      git rev-parse --verify -q HEAD >/dev/null 2>&1 && git diff --name-only HEAD
+      git diff --name-only --cached
+      git ls-files --others --exclude-standard
+    } 2>/dev/null | { grep -E "$exts" || true; } | sort -u
+  else
+    git ls-files 2>/dev/null | { grep -E "$exts" || true; } | sort -u
+  fi
+}
+
+files=$(list "${1:-}")
+if [ -z "$files" ]; then
+  echo "clang-format-fix: nothing to format"
+  exit 0
+fi
+
+# shellcheck disable=SC2086
+clang-format -i $files || exit 1
+echo "clang-format-fix: formatted $(printf '%s\n' "$files" | wc -l) file(s)"

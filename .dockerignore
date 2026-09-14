@@ -1,0 +1,15 @@
+# Build context hygiene for docker/Dockerfile (and the devcontainer build,
+# which shares this context root). The firmware build needs only sources,
+# vendored SDK trees and versions.env.
+.git/
+.pio/
+tmp/
+.Trash-0/
+dist/
+docs/*.pdf
+**/test/host/build/
+__pycache__/
+
+# Local SDK repoint override — the container build must stay self-contained
+# against vendor/freeink-sdk.
+platformio.local.ini

@@ -1,0 +1,712 @@
+# Capabilities response vectors
+# Source: midea-msmart @ d7db53bc470d3751b3f29a5ca2fedacdd4d14b70 msmart/device/AC/test_command.py TestCapabilitiesResponse
+# Format: column-0 line = vector name; indented `field value` lines follow.
+# Hex values are lowercase. Do not edit by hand; re-run the extractor.
+
+caps_1
+  # test_capabilities
+  frame aa29ac00000000000303b5071202010113020101140201011502010116020101170201001a020101dedb
+  expect_anion absent
+  expect_eco 1
+  expect_freeze_protection 1
+  expect_fahrenheit absent
+  expect_heat_mode 1
+  expect_cool_mode 1
+  expect_dry_mode 1
+  expect_auto_mode 1
+  expect_aux_heat_mode 0
+  expect_aux_mode 0
+  expect_swing_horizontal 1
+  expect_swing_vertical 1
+  expect_fan_silent absent
+  expect_fan_low absent
+  expect_fan_medium absent
+  expect_fan_high absent
+  expect_fan_auto absent
+  expect_fan_custom absent
+  expect_humidity_auto_set absent
+  expect_humidity_manual_set absent
+  expect_turbo_heat 1
+  expect_turbo_cool 1
+  expect_cool_min_temperature absent
+  expect_cool_max_temperature absent
+  expect_auto_min_temperature absent
+  expect_auto_max_temperature absent
+  expect_heat_min_temperature absent
+  expect_heat_max_temperature absent
+  expect_decimals absent
+  expect_additional 0
+
+caps_2
+  # test_capabilities_2
+  frame aa3dac00000000000203b50a12020101180001001402010115020101160201001a020101100201011f020100250207203c203c203c00400001000100c83a
+  expect_anion absent
+  expect_eco 1
+  expect_freeze_protection absent
+  expect_fahrenheit absent
+  expect_heat_mode 1
+  expect_cool_mode 1
+  expect_dry_mode 1
+  expect_auto_mode 1
+  expect_aux_heat_mode 0
+  expect_aux_mode 0
+  expect_swing_horizontal 1
+  expect_swing_vertical 1
+  expect_fan_silent 0
+  expect_fan_low 0
+  expect_fan_medium 0
+  expect_fan_high 0
+  expect_fan_auto 0
+  expect_fan_custom 1
+  expect_humidity_auto_set 0
+  expect_humidity_manual_set 0
+  expect_turbo_heat 1
+  expect_turbo_cool 1
+  expect_cool_min_temperature 16.0
+  expect_cool_max_temperature 30.0
+  expect_auto_min_temperature 16.0
+  expect_auto_max_temperature 30.0
+  expect_heat_min_temperature 16.0
+  expect_heat_max_temperature 30.0
+  expect_decimals 0
+  expect_additional 1
+
+caps_3
+  # test_capabilities_3 (Toshiba window unit)
+  frame aa29ac00000000000303b507120201021402010015020102170201021a0201021002010524020101990d
+  expect_anion absent
+  expect_eco 1
+  expect_freeze_protection absent
+  expect_fahrenheit absent
+  expect_heat_mode 0
+  expect_cool_mode 1
+  expect_dry_mode 1
+  expect_auto_mode 1
+  expect_aux_heat_mode 0
+  expect_aux_mode 0
+  expect_swing_horizontal 0
+  expect_swing_vertical 0
+  expect_fan_silent 0
+  expect_fan_low 1
+  expect_fan_medium 1
+  expect_fan_high 1
+  expect_fan_auto 1
+  expect_fan_custom 0
+  expect_humidity_auto_set absent
+  expect_humidity_manual_set absent
+  expect_turbo_heat 0
+  expect_turbo_cool 0
+  expect_cool_min_temperature absent
+  expect_cool_max_temperature absent
+  expect_auto_min_temperature absent
+  expect_auto_max_temperature absent
+  expect_heat_min_temperature absent
+  expect_heat_max_temperature absent
+  expect_decimals absent
+  expect_additional 0
+
+caps_4
+  # test_capabilities_4 (U-shaped window unit)
+  frame aa39ac00000000000303b50912020102130201001402010015020100170201021a02010010020101250207203c203c203c00240201010102a1a0
+  expect_anion absent
+  expect_eco 1
+  expect_freeze_protection 0
+  expect_fahrenheit absent
+  expect_heat_mode 0
+  expect_cool_mode 1
+  expect_dry_mode 1
+  expect_auto_mode 1
+  expect_aux_heat_mode 0
+  expect_aux_mode 0
+  expect_swing_horizontal 0
+  expect_swing_vertical 1
+  expect_fan_silent 0
+  expect_fan_low 0
+  expect_fan_medium 0
+  expect_fan_high 0
+  expect_fan_auto 0
+  expect_fan_custom 1
+  expect_humidity_auto_set absent
+  expect_humidity_manual_set absent
+  expect_turbo_heat 0
+  expect_turbo_cool 1
+  expect_cool_min_temperature 16.0
+  expect_cool_max_temperature 30.0
+  expect_auto_min_temperature 16.0
+  expect_auto_max_temperature 30.0
+  expect_heat_min_temperature 16.0
+  expect_heat_max_temperature 30.0
+  expect_decimals 0
+  expect_additional 1
+
+caps_additional_main
+  # test_additional_capabilities; more=1
+  frame aa3dac00000000000303b50a12020101430001011402010115020101160201001a020101100201011f020103250207203c203c203c05400001000100c805
+  expect_anion absent
+  expect_eco 1
+  expect_freeze_protection absent
+  expect_fahrenheit absent
+  expect_heat_mode 1
+  expect_cool_mode 1
+  expect_dry_mode 1
+  expect_auto_mode 1
+  expect_aux_heat_mode 0
+  expect_aux_mode 0
+  expect_swing_horizontal 1
+  expect_swing_vertical 1
+  expect_fan_silent 0
+  expect_fan_low 0
+  expect_fan_medium 0
+  expect_fan_high 0
+  expect_fan_auto 0
+  expect_fan_custom 1
+  expect_humidity_auto_set 0
+  expect_humidity_manual_set 1
+  expect_turbo_heat 1
+  expect_turbo_cool 1
+  expect_cool_min_temperature 16.0
+  expect_cool_max_temperature 30.0
+  expect_auto_min_temperature 16.0
+  expect_auto_max_temperature 30.0
+  expect_heat_min_temperature 16.0
+  expect_heat_max_temperature 30.0
+  expect_decimals 1
+  expect_additional 1
+
+caps_additional_followup
+  # test_additional_capabilities; merge target
+  frame aa23ac00000000000303b5051e020101130201012202010019020100390001010000febe
+  expect_anion 1
+  expect_eco absent
+  expect_freeze_protection 1
+  expect_fahrenheit 1
+  expect_heat_mode absent
+  expect_cool_mode absent
+  expect_dry_mode absent
+  expect_auto_mode absent
+  expect_aux_heat_mode absent
+  expect_aux_mode absent
+  expect_swing_horizontal absent
+  expect_swing_vertical absent
+  expect_fan_silent absent
+  expect_fan_low absent
+  expect_fan_medium absent
+  expect_fan_high absent
+  expect_fan_auto absent
+  expect_fan_custom absent
+  expect_humidity_auto_set absent
+  expect_humidity_manual_set absent
+  expect_turbo_heat absent
+  expect_turbo_cool absent
+  expect_cool_min_temperature absent
+  expect_cool_max_temperature absent
+  expect_auto_min_temperature absent
+  expect_auto_max_temperature absent
+  expect_heat_min_temperature absent
+  expect_heat_max_temperature absent
+  expect_decimals absent
+  expect_additional 0
+
+caps_aux_heat_main
+  # test_capabilities_aux_heat
+  frame aa29ac00000000000303b50514020109150201021a020101250207203c203c203c003402010101007b1d
+  expect_anion absent
+  expect_eco absent
+  expect_freeze_protection absent
+  expect_fahrenheit absent
+  expect_heat_mode 1
+  expect_cool_mode 1
+  expect_dry_mode 1
+  expect_auto_mode 1
+  expect_aux_heat_mode 1
+  expect_aux_mode 1
+  expect_swing_horizontal 0
+  expect_swing_vertical 0
+  expect_fan_silent absent
+  expect_fan_low absent
+  expect_fan_medium absent
+  expect_fan_high absent
+  expect_fan_auto absent
+  expect_fan_custom absent
+  expect_humidity_auto_set absent
+  expect_humidity_manual_set absent
+  expect_turbo_heat 1
+  expect_turbo_cool 1
+  expect_cool_min_temperature 16.0
+  expect_cool_max_temperature 30.0
+  expect_auto_min_temperature 16.0
+  expect_auto_max_temperature 30.0
+  expect_heat_min_temperature 16.0
+  expect_heat_max_temperature 30.0
+  expect_decimals 0
+  expect_additional 1
+
+caps_aux_heat_followup
+  # test_capabilities_aux_heat
+  frame aa2fac00000000000303b508100201051f020100300001001302010019020101390001009300010194000101000095ca
+  expect_anion absent
+  expect_eco absent
+  expect_freeze_protection 0
+  expect_fahrenheit absent
+  expect_heat_mode absent
+  expect_cool_mode absent
+  expect_dry_mode absent
+  expect_auto_mode absent
+  expect_aux_heat_mode absent
+  expect_aux_mode absent
+  expect_swing_horizontal absent
+  expect_swing_vertical absent
+  expect_fan_silent 0
+  expect_fan_low 1
+  expect_fan_medium 1
+  expect_fan_high 1
+  expect_fan_auto 1
+  expect_fan_custom 0
+  expect_humidity_auto_set 0
+  expect_humidity_manual_set 0
+  expect_turbo_heat absent
+  expect_turbo_cool absent
+  expect_cool_min_temperature absent
+  expect_cool_max_temperature absent
+  expect_auto_min_temperature absent
+  expect_auto_max_temperature absent
+  expect_heat_min_temperature absent
+  expect_heat_max_temperature absent
+  expect_decimals absent
+  expect_additional 0
+
+caps_flash_1
+  # test_capabilities_flash
+  frame aa27ac00000000000303b5051f0201002c020101670001011602010451000101e30001010004f564
+  expect_anion absent
+  expect_eco absent
+  expect_freeze_protection absent
+  expect_fahrenheit absent
+  expect_heat_mode absent
+  expect_cool_mode absent
+  expect_dry_mode absent
+  expect_auto_mode absent
+  expect_aux_heat_mode absent
+  expect_aux_mode absent
+  expect_swing_horizontal absent
+  expect_swing_vertical absent
+  expect_fan_silent absent
+  expect_fan_low absent
+  expect_fan_medium absent
+  expect_fan_high absent
+  expect_fan_auto absent
+  expect_fan_custom absent
+  expect_humidity_auto_set 0
+  expect_humidity_manual_set 0
+  expect_turbo_heat absent
+  expect_turbo_cool absent
+  expect_cool_min_temperature absent
+  expect_cool_max_temperature absent
+  expect_auto_min_temperature absent
+  expect_auto_max_temperature absent
+  expect_heat_min_temperature absent
+  expect_heat_max_temperature absent
+  expect_decimals absent
+  expect_additional 0
+  expect_ieco absent
+  expect_out_silent absent
+
+caps_flash_2
+  # test_capabilities_flash; ieco 8 levels
+  frame aa56ac00000000000803b51012020100180001001402010115020101160201041a020101100201011f020103250207203c203c203c0551000101e30002080867000102c200010098000101950001019d00010101008b43
+  expect_anion absent
+  expect_eco 0
+  expect_freeze_protection absent
+  expect_fahrenheit absent
+  expect_heat_mode 1
+  expect_cool_mode 1
+  expect_dry_mode 1
+  expect_auto_mode 1
+  expect_aux_heat_mode 0
+  expect_aux_mode 0
+  expect_swing_horizontal 1
+  expect_swing_vertical 1
+  expect_fan_silent 0
+  expect_fan_low 0
+  expect_fan_medium 0
+  expect_fan_high 0
+  expect_fan_auto 0
+  expect_fan_custom 1
+  expect_humidity_auto_set 0
+  expect_humidity_manual_set 1
+  expect_turbo_heat 1
+  expect_turbo_cool 1
+  expect_cool_min_temperature 16.0
+  expect_cool_max_temperature 30.0
+  expect_auto_min_temperature 16.0
+  expect_auto_max_temperature 30.0
+  expect_heat_min_temperature 16.0
+  expect_heat_max_temperature 30.0
+  expect_decimals 1
+  expect_additional 1
+  expect_ieco 1
+  expect_ieco_number 8
+  expect_out_silent absent
+
+caps_flash_3
+  # test_capabilities_flash / test_capabilities_ieco_ecomaster (identical)
+  frame aa52ac00000000000803b50f120201001402010015020101160201041a02010110020101250207203c203c203c002402010151000101e3000208086700010495000101980001017c000100cd0001000100bd47
+  expect_anion absent
+  expect_eco 0
+  expect_freeze_protection absent
+  expect_fahrenheit absent
+  expect_heat_mode 0
+  expect_cool_mode 1
+  expect_dry_mode 1
+  expect_auto_mode 1
+  expect_aux_heat_mode 0
+  expect_aux_mode 0
+  expect_swing_horizontal 1
+  expect_swing_vertical 1
+  expect_fan_silent 0
+  expect_fan_low 0
+  expect_fan_medium 0
+  expect_fan_high 0
+  expect_fan_auto 0
+  expect_fan_custom 1
+  expect_humidity_auto_set absent
+  expect_humidity_manual_set absent
+  expect_turbo_heat 1
+  expect_turbo_cool 1
+  expect_cool_min_temperature 16.0
+  expect_cool_max_temperature 30.0
+  expect_auto_min_temperature 16.0
+  expect_auto_max_temperature 30.0
+  expect_heat_min_temperature 16.0
+  expect_heat_max_temperature 30.0
+  expect_decimals 0
+  expect_additional 1
+  expect_ieco 1
+  expect_ieco_number 8
+  expect_out_silent 0
+
+caps_cascade
+  # test_capabilities_cascade
+  frame aa3bac00000000000303b50a1e02010113020101220201001902010039000101580001024200010159000101090001010a000101000000000000cfbf
+  expect_anion 1
+  expect_eco absent
+  expect_freeze_protection 1
+  expect_fahrenheit 1
+  expect_heat_mode absent
+  expect_cool_mode absent
+  expect_dry_mode absent
+  expect_auto_mode absent
+  expect_aux_heat_mode absent
+  expect_aux_mode absent
+  expect_swing_horizontal absent
+  expect_swing_vertical absent
+  expect_fan_silent absent
+  expect_fan_low absent
+  expect_fan_medium absent
+  expect_fan_high absent
+  expect_fan_auto absent
+  expect_fan_custom absent
+  expect_humidity_auto_set absent
+  expect_humidity_manual_set absent
+  expect_turbo_heat absent
+  expect_turbo_cool absent
+  expect_cool_min_temperature absent
+  expect_cool_max_temperature absent
+  expect_auto_min_temperature absent
+  expect_auto_max_temperature absent
+  expect_heat_min_temperature absent
+  expect_heat_max_temperature absent
+  expect_decimals absent
+  expect_additional 0
+  expect_cascade 1
+  expect_fresh_air absent
+  expect_rate_select_2_level absent
+  expect_rate_select_5_level absent
+
+caps_out_silent
+  # test_capabilities_out_silent (PortaSplit)
+  frame aa2fac00000000000803b5081f0201002c020101160201043900010151000101e300010113020101cd0001030002365b
+  expect_anion absent
+  expect_eco absent
+  expect_freeze_protection 1
+  expect_fahrenheit absent
+  expect_heat_mode absent
+  expect_cool_mode absent
+  expect_dry_mode absent
+  expect_auto_mode absent
+  expect_aux_heat_mode absent
+  expect_aux_mode absent
+  expect_swing_horizontal absent
+  expect_swing_vertical absent
+  expect_fan_silent absent
+  expect_fan_low absent
+  expect_fan_medium absent
+  expect_fan_high absent
+  expect_fan_auto absent
+  expect_fan_custom absent
+  expect_humidity_auto_set 0
+  expect_humidity_manual_set 0
+  expect_turbo_heat absent
+  expect_turbo_cool absent
+  expect_cool_min_temperature absent
+  expect_cool_max_temperature absent
+  expect_auto_min_temperature absent
+  expect_auto_max_temperature absent
+  expect_heat_min_temperature absent
+  expect_heat_max_temperature absent
+  expect_decimals absent
+  expect_additional 0
+  expect_ieco 1
+  expect_ieco_number 1
+  expect_out_silent 1
+
+caps_ieco
+  # test_capabilities_ieco; ieco_number=1
+  frame aa2bac00000000000803b5071f0201002c020101160201043900010151000101e3000101130201010002fa6d
+  expect_anion absent
+  expect_eco absent
+  expect_freeze_protection 1
+  expect_fahrenheit absent
+  expect_heat_mode absent
+  expect_cool_mode absent
+  expect_dry_mode absent
+  expect_auto_mode absent
+  expect_aux_heat_mode absent
+  expect_aux_mode absent
+  expect_swing_horizontal absent
+  expect_swing_vertical absent
+  expect_fan_silent absent
+  expect_fan_low absent
+  expect_fan_medium absent
+  expect_fan_high absent
+  expect_fan_auto absent
+  expect_fan_custom absent
+  expect_humidity_auto_set 0
+  expect_humidity_manual_set 0
+  expect_turbo_heat absent
+  expect_turbo_cool absent
+  expect_cool_min_temperature absent
+  expect_cool_max_temperature absent
+  expect_auto_min_temperature absent
+  expect_auto_max_temperature absent
+  expect_heat_min_temperature absent
+  expect_heat_max_temperature absent
+  expect_decimals absent
+  expect_additional 0
+  expect_ieco 1
+  expect_ieco_number 1
+  expect_out_silent absent
+
+caps_additional_merged
+  # test_additional_capabilities; main merged with followup
+  main_frame aa3dac00000000000303b50a12020101430001011402010115020101160201001a020101100201011f020103250207203c203c203c05400001000100c805
+  followup_frame aa23ac00000000000303b5051e020101130201012202010019020100390001010000febe
+  expect_anion 1
+  expect_eco 1
+  expect_freeze_protection 1
+  expect_fahrenheit 1
+  expect_heat_mode 1
+  expect_cool_mode 1
+  expect_dry_mode 1
+  expect_auto_mode 1
+  expect_aux_heat_mode 0
+  expect_aux_mode 0
+  expect_swing_horizontal 1
+  expect_swing_vertical 1
+  expect_fan_silent 0
+  expect_fan_low 0
+  expect_fan_medium 0
+  expect_fan_high 0
+  expect_fan_auto 0
+  expect_fan_custom 1
+  expect_humidity_auto_set 0
+  expect_humidity_manual_set 1
+  expect_turbo_heat 1
+  expect_turbo_cool 1
+  expect_cool_min_temperature 16.0
+  expect_cool_max_temperature 30.0
+  expect_auto_min_temperature 16.0
+  expect_auto_max_temperature 30.0
+  expect_heat_min_temperature 16.0
+  expect_heat_max_temperature 30.0
+  expect_decimals 1
+  expect_additional 1
+
+caps_aux_heat_merged
+  # test_capabilities_aux_heat; main merged with followup
+  main_frame aa29ac00000000000303b50514020109150201021a020101250207203c203c203c003402010101007b1d
+  followup_frame aa2fac00000000000303b508100201051f020100300001001302010019020101390001009300010194000101000095ca
+  expect_anion absent
+  expect_eco absent
+  expect_freeze_protection 0
+  expect_fahrenheit absent
+  expect_heat_mode 1
+  expect_cool_mode 1
+  expect_dry_mode 1
+  expect_auto_mode 1
+  expect_aux_heat_mode 1
+  expect_aux_mode 1
+  expect_swing_horizontal 0
+  expect_swing_vertical 0
+  expect_fan_silent 0
+  expect_fan_low 1
+  expect_fan_medium 1
+  expect_fan_high 1
+  expect_fan_auto 1
+  expect_fan_custom 0
+  expect_humidity_auto_set 0
+  expect_humidity_manual_set 0
+  expect_turbo_heat 1
+  expect_turbo_cool 1
+  expect_cool_min_temperature 16.0
+  expect_cool_max_temperature 30.0
+  expect_auto_min_temperature 16.0
+  expect_auto_max_temperature 30.0
+  expect_heat_min_temperature 16.0
+  expect_heat_max_temperature 30.0
+  expect_decimals 0
+  expect_additional 1
+
+reader_eco_0
+  # test_capabilities_parsers synthetic reader payload
+  payload ba0112020100
+  expect_eco 0
+
+reader_eco_1
+  # test_capabilities_parsers synthetic reader payload
+  payload ba0112020101
+  expect_eco 1
+
+reader_eco_2
+  # test_capabilities_parsers synthetic reader payload
+  payload ba0112020102
+  expect_eco 1
+
+reader_turbo_0
+  # test_capabilities_parsers synthetic reader payload
+  payload ba011a020100
+  expect_turbo_heat 0
+  expect_turbo_cool 1
+
+reader_turbo_1
+  # test_capabilities_parsers synthetic reader payload
+  payload ba011a020101
+  expect_turbo_heat 1
+  expect_turbo_cool 1
+
+reader_turbo_3
+  # test_capabilities_parsers synthetic reader payload
+  payload ba011a020103
+  expect_turbo_heat 1
+  expect_turbo_cool 0
+
+reader_turbo_4
+  # test_capabilities_parsers synthetic reader payload
+  payload ba011a020104
+  expect_turbo_heat 0
+  expect_turbo_cool 0
+
+
+reader_self_clean_0
+  # test_capabilities_parsers synthetic reader payload
+  payload ba0139000100
+  expect_self_clean 0
+
+reader_self_clean_1
+  # test_capabilities_parsers synthetic reader payload
+  payload ba0139000101
+  expect_self_clean 1
+
+reader_breeze_away_0
+  # test_capabilities_parsers synthetic reader payload
+  payload ba0142000100
+  expect_breeze_away 0
+
+reader_breeze_away_1
+  # test_capabilities_parsers synthetic reader payload
+  payload ba0142000101
+  expect_breeze_away 1
+
+reader_breezeless_0
+  # test_capabilities_parsers synthetic reader payload
+  payload ba0118000100
+  expect_breezeless 0
+
+reader_breezeless_1
+  # test_capabilities_parsers synthetic reader payload
+  payload ba0118000101
+  expect_breezeless 1
+
+reader_flash_0
+  # test_capabilities_parsers synthetic reader payload
+  payload ba0167000100
+  expect_flash 0
+
+reader_flash_1
+  # test_capabilities_parsers synthetic reader payload
+  payload ba0167000101
+  expect_flash 1
+
+reader_flash_2
+  # test_capabilities_parsers synthetic reader payload
+  payload ba0167000102
+  expect_flash 1
+
+reader_flash_3
+  # test_capabilities_parsers synthetic reader payload
+  payload ba0167000103
+  expect_flash 1
+
+reader_flash_4
+  # test_capabilities_parsers synthetic reader payload
+  payload ba0167000104
+  expect_flash 1
+
+reader_rate_select_0
+  # test_capabilities_parsers synthetic reader payload
+  payload ba0148000100
+  expect_rate_select_2_level 0
+  expect_rate_select_5_level 0
+
+reader_rate_select_1
+  payload ba0148000101
+  expect_rate_select_2_level 1
+  expect_rate_select_5_level 0
+
+reader_rate_select_2
+  payload ba0148000102
+  expect_rate_select_2_level 0
+  expect_rate_select_5_level 1
+
+reader_rate_select_3
+  payload ba0148000103
+  expect_rate_select_2_level 0
+  expect_rate_select_5_level 1
+
+reader_cascade_0
+  payload ba0159000100
+  expect_cascade 0
+
+reader_cascade_1
+  payload ba0159000101
+  expect_cascade 1
+
+reader_fresh_air_0
+  payload ba014b000100
+  expect_fresh_air 0
+
+reader_fresh_air_1
+  payload ba014b000101
+  expect_fresh_air 1
+
+reader_display_control_1
+  payload ba0124020101
+  expect_display_control 1
+
+reader_display_control_0
+  payload ba0124020100
+  expect_display_control 0
+
+reader_display_control_100
+  payload ba0124020164
+  expect_display_control 1

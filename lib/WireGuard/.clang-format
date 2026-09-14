@@ -1,0 +1,5 @@
+# Vendored sources (see ATTRIBUTION.md) keep upstream formatting: tabs and
+# all. This nested config disables clang-format for the whole subtree, so
+# bin/clang-format-fix and the CI format check skip it.
+DisableFormat: true
+SortIncludes: Never

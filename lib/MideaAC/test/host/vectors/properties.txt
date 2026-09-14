@@ -1,0 +1,240 @@
+# Properties response vectors
+# Source: midea-msmart @ d7db53bc470d3751b3f29a5ca2fedacdd4d14b70 msmart/device/AC/test_command.py TestPropertiesResponse/TestResponseConstruct
+# The props_ieco_*/props_outsilent_*/props_pair/props_zero_len*/props_truncated
+# frames are synthesized device answers (no upstream capture exists), built
+# with the pinned msmart's Frame + crc8 over IECO/OUT_SILENT TLVs; decode
+# expectations follow PropertiesResponse._parse and PropertyId.decode.
+# Format: column-0 line = vector name; indented `field value` lines follow.
+# Hex values are lowercase. Do not edit by hand; re-run the extractor.
+
+props_parsing
+  # test_properties_parsing; 0x0009/0x000A, includes unsupported INDOOR_HUMIDITY
+  frame aa21ac00000000000303b10409000001000a00000100150000012b1e020000005fa3
+  expect_swing_lr 0
+  expect_swing_ud 0
+  expect_ieco none
+  expect_out_silent none
+  expect_self_clean none
+  expect_breeze_away none
+  expect_breezeless none
+  expect_flash none
+
+props_ack
+  # test_properties_ack; SWING_UD failed result 0x11
+  frame aa18ac00000000000302b0020a0000013209001101000089a4
+  expect_swing_lr 50
+  expect_swing_ud 0
+  expect_ieco none
+  expect_out_silent none
+
+props_notify
+  # test_properties_notify; decodes to generic Response (ignored)
+  frame aa1aac00000000000205b50310060101090001010a000101dcbcb4
+
+props_unknown
+  # test_properties_unknown_and_invalid; unknown ID 0x001E, BUZZER not decoded
+  frame aa1bac00000000000202b0021e001004001000001a00000100000e18
+  expect_ieco none
+  expect_out_silent none
+  expect_self_clean none
+  expect_breeze_away none
+  expect_breezeless none
+  expect_flash none
+
+props_exec_failed
+  # test_properties_execution_failed; BREEZE_CONTROL failed 0x11
+  frame aa18ac00000000000302b00243001101041a00000100002ce5
+  expect_ieco none
+  expect_out_silent none
+
+frame_bad_checksum
+  # test_invalid_checksum; frame csum 0xFF invalid
+  frame aa14ac00000000000303b10109000001003c0000FF
+  expect InvalidFrameException
+
+props_bad_crc
+  # test_properties_response_invalid_crc; bad payload CRC still accepted for properties
+  frame aa14ac00000000000303b10109000001003c000042
+  expect_ieco none
+  expect_out_silent none
+
+state_bad_crc
+  # test_properties_response_invalid_crc; state rejects bad crc
+  frame aa22ac00000000000303c0014566000000300010045eff00000000000000000069aa0c
+  expect InvalidResponseException
+
+frame_short
+  # test_short_packet
+  frame 01000000
+  expect InvalidFrameException
+
+frame_wrong_device_type
+  # test_invalid_device_type; CC (0xCC) device frame
+  frame aa63cc0000000000000301fe00000043005000728c8000bc00728c728c808000010141ff010203000603010000000000000001000103010000000000000000000001000100010000000000000000000000000001000200000100000101000102ff02ffa2
+  expect InvalidFrameException
+
+props_ieco_on
+  # synthesized device response: 0xB1 answer with IECO TLV [number 0, switch 1]
+  frame aa13ac00000000000003b101e300000200017135
+  expect_ieco 1
+  expect_ieco_failed 0
+  expect_out_silent none
+
+props_ieco_off
+  # synthesized device response: IECO switch 0
+  frame aa13ac00000000000003b101e300000200002f78
+  expect_ieco 0
+  expect_ieco_failed 0
+  expect_out_silent none
+
+props_outsilent_on
+  # synthesized device response: OUT_SILENT TLV value 3 (on)
+  frame aa12ac00000000000003b101cd00000103615b
+  expect_ieco none
+  expect_out_silent 1
+  expect_out_silent_failed 0
+
+props_outsilent_off
+  # synthesized device response: OUT_SILENT TLV value 0
+  frame aa12ac00000000000003b101cd00000100833c
+  expect_ieco none
+  expect_out_silent 0
+  expect_out_silent_failed 0
+
+props_pair
+  # synthesized 0xB1 answer carrying both properties (ECOMaster number 8 in the TLV)
+  frame aa18ac00000000000003b102e30000020801cd0000010301c6
+  expect_ieco 1
+  expect_ieco_failed 0
+  expect_out_silent 1
+  expect_out_silent_failed 0
+
+props_ieco_failed
+  # synthesized 0xB0 ack with execution-failed bit 0x11; value still decoded, as upstream
+  frame aa13ac00000000000002b001e300110200018512
+  expect_ieco 1
+  expect_ieco_failed 1
+  expect_out_silent none
+
+props_zero_len_then_outsilent
+  # zero-length IECO TLV is skipped; the walk continues into the next TLV
+  frame aa16ac00000000000003b102e3000000cd0000010306ce
+  expect_ieco none
+  expect_out_silent 1
+  expect_out_silent_failed 0
+
+props_truncated
+  # C++-hardened: TLV shorter than its length header; walk stops (upstream raises)
+  frame aa12ac00000000000003b101e3000002008c1c
+  expect_ieco none
+  expect_out_silent none
+
+
+props_selfclean_running
+  # synthesized self-clean GET answer; bool(data[0]) = cycle running
+  frame aa12ac00000000000003b101390000010164ee
+  expect_self_clean 1
+
+props_selfclean_idle
+  frame aa12ac00000000000003b10139000001003a19
+  expect_self_clean 0
+
+props_breeze_away_on
+  # BREEZE_AWAY decodes only value 2 as on
+  frame aa12ac00000000000003b10142000001029bad
+  expect_breeze_away 1
+
+props_breeze_away_off1
+  # explicit off value 1 decodes false
+  frame aa12ac00000000000003b101420000010179d0
+  expect_breeze_away 0
+
+props_breezeless_on
+  frame aa12ac00000000000003b10118000001015122
+  expect_breezeless 1
+
+props_breezeless_off
+  frame aa12ac00000000000003b10118000001000f65
+  expect_breezeless 0
+
+props_flash_on2
+  # FLASH decodes any non-zero as on
+  frame aa12ac00000000000003b1016700000102b172
+  expect_flash 1
+
+props_flash_off
+  frame aa12ac00000000000003b10167000001000d18
+  expect_flash 0
+
+props_mixed6
+  # all six supported property TLVs in one answer
+  frame aa2cac00000000000003b106e30000020301cd000001003900000101420000010218000001006700000101a70e
+  expect_ieco 1
+  expect_out_silent 0
+  expect_self_clean 1
+  expect_breeze_away 1
+  expect_breezeless 0
+  expect_flash 1
+
+props_selfclean_failed
+  # set ack with result bit 0x10; value still decoded upstream
+  frame aa12ac00000000000002b0013900110101b88b
+  expect_self_clean 1
+  expect_self_clean_failed 1
+
+props_breeze_away_failed
+  frame aa12ac00000000000002b001420011010247f2
+  expect_breeze_away 1
+  expect_breeze_away_failed 1
+
+props_rate_select_50
+  frame aa12ac00000000000003b1014800000132987a
+  expect_rate_select 50
+
+props_rate_select_off100
+  # RATE_SELECT off is the gear value 100, not 0
+  frame aa12ac00000000000003b10148000001649e42
+  expect_rate_select 100
+
+props_cascade_down
+  # CASCADE decode: data[0] ? data[1] : 0
+  frame aa13ac00000000000003b1015900000201029f8f
+  expect_cascade 2
+
+props_cascade_offflag
+  # enable byte clear forces 0 regardless of the mode byte
+  frame aa13ac00000000000003b101590000020000e74a
+  expect_cascade 0
+
+props_fresh_air_boost
+  # FRESH_AIR decode: data[0] ? data[1] : 0
+  frame aa14ac00000000000003b1014b0000030164ff9b3e
+  expect_fresh_air 100
+
+props_fresh_air_offflag
+  frame aa14ac00000000000003b1014b0000030000ff51ed
+  expect_fresh_air 0
+
+props_mixed_enums
+  # rate select level-1 (1), cascade up (1), fresh air 40 in one answer
+  frame aa1fac00000000000003b10348000001015900000201014b0000030128ffeb76
+  expect_rate_select 1
+  expect_cascade 1
+  expect_fresh_air 40
+
+props_rate_select_failed
+  # set ack with result bit 0x10; value still decoded upstream
+  frame aa12ac00000000000002b001480011013244bf
+  expect_rate_select 50
+  expect_rate_select_failed 1
+
+props_buzzer_then_out_silent
+  # BUZZER (0x001A) has no decoder (msmart decode returns None): the TLV must
+  # be skipped without desyncing the walk; the out-silent behind it lands.
+  frame aa17ac00000000000003b1021a00000101cd000001035347
+  expect_out_silent 1
+
+props_buzzer_failed
+  # set ack for the buzzer: result bit 0x10; nothing decodes from it.
+  frame aa12ac00000000000002b0011a001101005013
+  expect_ieco none

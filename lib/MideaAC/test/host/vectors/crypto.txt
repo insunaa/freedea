@@ -1,0 +1,69 @@
+# Security primitive vectors (V2)
+# Source: midea-msmart @ d7db53bc470d3751b3f29a5ca2fedacdd4d14b70 msmart/lan.py Security: SIGN_KEY/ENC_KEY/sign/encrypt_aes/encrypt_aes_cbc/udpid
+# Format: column-0 line = vector name; indented `field value` lines follow.
+# Hex values are lowercase. Do not edit by hand; re-run the extractor.
+
+sign_key
+  # lan.py:651
+  value 78686469776a6e6368656b6434643531326368646a783564386534633339344432443753
+  ascii xhdiwjnchekd4d512chdjx5d8e4c394D2D7S
+
+enc_key
+  # md5(SIGN_KEY), lan.py:652
+  value 6a92ef406bad2f0359baad994171ea6d
+
+sign_frame33
+  # sign(d)=md5(d+SIGN_KEY), lan.py:677
+  input aa21ac8d000000000003418100ff03ff000200000000000000000000000003016971
+  expected f17708e92613b72d0e205cdba71e9f7c
+
+sign_empty
+  # sign of empty data
+  input 
+  expected 6a92ef406bad2f0359baad994171ea6d
+
+aes_ecb_zero16
+  # AES-128-ECB key=ENC_KEY, PKCS7, lan.py:660-668
+  input 00000000000000000000000000000000
+  expected 4bdfb3e16e33d88768cc4c3d0658937d915c618b02ed2747fad73f2ffa0db1d3
+
+aes_ecb_zero32
+  # 2-block
+  input 0000000000000000000000000000000000000000000000000000000000000000
+  expected 4bdfb3e16e33d88768cc4c3d0658937d4bdfb3e16e33d88768cc4c3d0658937d915c618b02ed2747fad73f2ffa0db1d3
+
+aes_ecb_frame33
+  # 33B->48B; ciphertext sits at packet[40:88] of any V2 packet carrying this frame
+  input aa21ac8d000000000003418100ff03ff000200000000000000000000000003016971
+  expected b8436dd15e84d5a4fc6fbf77d2b12486e10c552981b23022cb71ea0fc54dc25ecfa0ce55888ac57fc42a7eacc3285d37
+
+aes_cbc128_pattern16
+  # AES-128-CBC zero-IV, lan.py:654-660
+  key 6a92ef406bad2f0359baad994171ea6d
+  input 000102030405060708090a0b0c0d0e0f
+  expected 570e44c8d6bfb83a6d6c8cfc72ac330c
+
+aes_cbc128_zeros32
+  # 2-block
+  key 6a92ef406bad2f0359baad994171ea6d
+  input 0000000000000000000000000000000000000000000000000000000000000000
+  expected 4bdfb3e16e33d88768cc4c3d0658937dfd73878e9e70a331ae4a55db62e5b256
+
+aes_cbc256_pattern48
+  # AES-256-CBC zero-IV (V3 local_key is 32B)
+  key 000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f
+  input 000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f202122232425262728292a2b2c2d2e2f
+  expected 5a6e045708fb7196f02e553d02c3a692c77147ebd5121de8d0fae7762423b6bf78e2e0038b691b8bedfc32116811da59
+
+udpid_device_le
+  # sha256(id)[:16]^sha256(id)[16:], 6-byte LE id
+  device_id 0e000000ca60
+  input 60ca0000000e
+  expected d3ac621dd9a5088a53ca8e926e03b28b
+
+udpid_device_be
+  # same, 6-byte BE id (discover.py tries both)
+  device_id 0e000000ca60
+  input 0e000000ca60
+  expected a3ae1572b5aae1e1f9aa1bd39566dcaa
+

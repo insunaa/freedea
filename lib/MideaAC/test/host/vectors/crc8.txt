@@ -1,0 +1,24 @@
+# CRC8 (854 table) vectors
+# Source: midea-msmart @ d7db53bc470d3751b3f29a5ca2fedacdd4d14b70 msmart/crc8.py, msmart/device/AC/command.py:201,479
+# Format: column-0 line = vector name; indented `field value` lines follow.
+# Hex values are lowercase. Do not edit by hand; re-run the extractor.
+
+getstate_payload
+  # crc8 over payload minus final crc byte (command.py:201)
+  input 418100ff03ff00020000000000000000000000000311
+  expected f4
+
+state_v3_payload_tail
+  # Response.validate: tail must equal crc8 OR frame checksum (command.py:479)
+  input c00145660000003c0010045c6b2000000000000000000002
+  expected 0d
+  matched_by crc8
+
+zero16
+  input 00000000000000000000000000000000
+  expected 00
+
+byte_01
+  input 01
+  expected 5e
+

@@ -1,0 +1,46 @@
+# Freedea Control-row icons (9.1). Manifest for the FreeInk icon generator:
+# one per line, `alias = lucide-name` (alias = the C identifier in the
+# generated header).
+#
+# Generation is never run in CI; the generated src/ui/icons_gen.h is
+# committed. Regenerate with:
+#   apt install librsvg2-bin python3-pil
+#   git clone --depth 1 https://github.com/lucide-icons/lucide.git tmp/lucide
+#   python3 vendor/freeink-sdk/libs/assets/Icons/tools/gen_icons.py \
+#     --manifest src/ui/icons.txt --svgdir tmp/lucide/icons --sizes 24 \
+#     --out src/ui/icons_gen.h
+# Pinned SVG source: github.com/lucide-icons/lucide @ a79b2d1 (2026-09-11).
+# License: ISC (Feather-derived icons under MIT) — bundled in the on-device
+# Licenses viewer via bin/gen_license_texts.py.
+# After regenerating, run ./bin/clang-format-fix -g: the committed header is
+# the project-style (clang-format) form of the generator output.
+
+# Row 0 (Mode): glyph follows the active mode.
+mode_auto  = refresh-cw
+mode_cool  = snowflake
+mode_heat  = flame
+mode_dry   = droplet
+mode_fan   = fan
+
+# Rows 1-21: fixed per-row glyphs.
+target       = thermometer
+fan_speed    = gauge
+swing        = arrow-up-down
+eco          = leaf
+turbo        = zap
+ieco         = recycle
+out_silent   = volume-x
+ionizer      = sparkles
+freeze_prot  = shield
+sleep        = moon
+follow_me    = locate-fixed
+self_clean   = brush
+breeze_away  = wind
+breezeless   = cloud
+jet_cool     = flame-kindling
+power_limit  = sliders-horizontal
+wind_around  = move-vertical
+fresh_air    = air-vent
+display      = monitor
+sound        = volume-2
+button_lock  = lock

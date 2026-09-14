@@ -1,0 +1,21 @@
+# GetState command frame vectors
+# Source: midea-msmart @ d7db53bc470d3751b3f29a5ca2fedacdd4d14b70 msmart/device/AC/test_command.py::test_frame, msmart/tests/test_lan.py
+# Format: column-0 line = vector name; indented `field value` lines follow.
+# Hex values are lowercase. Do not edit by hand; re-run the extractor.
+
+getstate_full
+  # Command._message_id=0x10, post-incremented to 0x11 in payload; frame=header(10)+payload+csum
+  frame aa21ac00000000000003418100ff03ff00020000000000000000000000000311f463
+  payload 418100ff03ff00020000000000000000000000000311f4
+  message_id_counter 10
+  message_id_byte 11
+  payload_crc8 f4
+
+getstate_payload
+  # test_frame EXPECTED_PAYLOAD, byte-identical to Python source
+  payload 418100ff03ff00020000000000000000000000000311f4
+
+v2_roundtrip_frame
+  # test_encode_packet_roundtrip FRAME (protocol byte 0x8d), byte-identical to Python source
+  frame aa21ac8d000000000003418100ff03ff000200000000000000000000000003016971
+

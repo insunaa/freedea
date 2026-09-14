@@ -1,0 +1,7 @@
+# Name,   Type, SubType, Offset,   Size
+nvs,      data, nvs,     0x9000,   0x5000
+otadata,  data, ota,     0xe000,   0x2000
+app0,     app,  ota_0,   0x10000,  0x640000
+# No internal filesystem partition: all persistent data (/.freedea/) lives on
+# the SD card via HalStorage/SDCardManager. Flash from 0x650000 onward is left
+# free for a future second OTA slot or LittleFS if ever needed.

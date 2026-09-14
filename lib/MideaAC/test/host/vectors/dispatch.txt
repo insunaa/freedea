@@ -1,0 +1,51 @@
+# Response dispatch (Response.construct) vectors
+# Source: midea-msmart @ d7db53bc470d3751b3f29a5ca2fedacdd4d14b70 msmart/device/AC/command.py:486-531
+# Format: column-0 line = vector name; indented `field value` lines follow.
+# Hex values are lowercase. Do not edit by hand; re-run the extractor.
+
+dispatch_state
+  # StateResponse dispatch on id 0xC0
+  frame aa22ac00000000000303c0014566000000300010045eff00000000000000000069fdb9
+  expect_kind state
+
+dispatch_caps
+  # CapabilitiesResponse on 0xB5 + QUERY frame type
+  frame aa29ac00000000000303b5071202010113020101140201011502010116020101170201001a020101dedb
+  expect_kind capabilities
+
+dispatch_caps_unsolicited
+  # 0xB5 with frame type 0x5 is ignored (command.py:515)
+  frame aa29ac00000000000305b5071202010113020101140201011502010116020101170201001a020101ded9
+  expect_kind none
+
+dispatch_unknown_id
+  # unrecognized response id -> base Response
+  frame aa22ac00000000000303ee014566000000300010045eff00000000000000000069b5d3
+  expect_kind none
+
+dispatch_props
+  # PropertiesResponse on 0xB1
+  frame aa21ac00000000000303b10409000001000a00000100150000012b1e020000005fa3
+  expect_kind properties
+
+dispatch_props_ack
+  # PropertiesResponse (ack) on 0xB0
+  frame aa18ac00000000000302b0020a0000013209001101000089a4
+  expect_kind properties_ack
+
+dispatch_props_bad_tail
+  # Properties are exempt from payload CRC validation
+  frame aa21ac00000000000303b1fb09000001000a00000100150000012b1e020000005fac
+  expect_kind properties
+
+dispatch_state_bad_tail
+  # state frame failing both CRC8 and checksum
+  frame aa22ac00000000000303c0fe4566000000300010045eff00000000000000000069fdbc
+  expect_kind invalid
+
+dispatch_group
+  # Group4; classify also reports frame[13] & 0xF
+  frame aa1fac00000000000303c121014400067920000000000000000000000000aabf
+  expect_kind group_data
+  expect_group 4
+

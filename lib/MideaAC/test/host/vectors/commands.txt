@@ -1,0 +1,768 @@
+# Command builder frame vectors
+# Source: midea-msmart @ d7db53bc470d3751b3f29a5ca2fedacdd4d14b70 msmart/device/AC/command.py:185-455 (Command/GetState/SetState/Get-SetProperties)
+# Format: column-0 line = vector name; indented `field value` lines follow.
+# Hex values are lowercase. Do not edit by hand; re-run the extractor.
+
+getstate_indoor
+  # default temperature_type INDOOR; same counter as frame.txt getstate_full
+  temperature_type 02
+  message_id_counter 10
+  frame aa21ac00000000000003418100ff03ff00020000000000000000000000000311f463
+
+getstate_outdoor
+  # temperature_type OUTDOOR
+  temperature_type 03
+  message_id_counter 20
+  frame aa21ac00000000000003418100ff03ff00030000000000000000000000000321ca7c
+
+setstate_defaults
+  # Python defaults: beep+eco+fahrenheit on, target 25.0, humidity 40
+  message_id_counter 01
+  beep_on 1
+  power_on 0
+  target_temperature 25.0
+  operational_mode 0
+  fan_speed 0
+  eco 1
+  swing_mode 0
+  turbo 0
+  fahrenheit 1
+  sleep 0
+  freeze_protection 0
+  follow_me 0
+  purifier 0
+  target_humidity 40
+  aux_heat 0
+  force_aux_heat 0
+  independent_aux_heat 0
+  frame aa24ac00000000000002404209007f7f00300080040000000000000000280000000002bb0c
+
+setstate_cool_half
+  # power on, 24.5 C (half-degree bit), mode 3, fan 50
+  message_id_counter 11
+  beep_on 1
+  power_on 1
+  target_temperature 24.5
+  operational_mode 3
+  fan_speed 50
+  eco 1
+  swing_mode 0
+  turbo 0
+  fahrenheit 1
+  sleep 0
+  freeze_protection 0
+  follow_me 0
+  purifier 0
+  target_humidity 40
+  aux_heat 0
+  force_aux_heat 0
+  independent_aux_heat 0
+  frame aa24ac00000000000002404378327f7f0030008004000000000000000028000000001231e4
+
+setstate_boundary_17
+  # primary range lower boundary 17.0
+  message_id_counter 22
+  beep_on 1
+  power_on 0
+  target_temperature 17.0
+  operational_mode 0
+  fan_speed 0
+  eco 1
+  swing_mode 0
+  turbo 0
+  fahrenheit 1
+  sleep 0
+  freeze_protection 0
+  follow_me 0
+  purifier 0
+  target_humidity 40
+  aux_heat 0
+  force_aux_heat 0
+  independent_aux_heat 0
+  frame aa24ac00000000000002404201007f7f00300080040000000000000000280000000023327c
+
+setstate_boundary_30
+  # primary range upper boundary 30.0
+  message_id_counter 33
+  beep_on 1
+  power_on 0
+  target_temperature 30.0
+  operational_mode 0
+  fan_speed 0
+  eco 1
+  swing_mode 0
+  turbo 0
+  fahrenheit 1
+  sleep 0
+  freeze_protection 0
+  follow_me 0
+  purifier 0
+  target_humidity 40
+  aux_heat 0
+  force_aux_heat 0
+  independent_aux_heat 0
+  frame aa24ac0000000000000240420e007f7f003000800400000000000000002800000000340d83
+
+setstate_30_5
+  # 30.5 still primary (int part in range) + half-degree bit
+  message_id_counter 44
+  beep_on 1
+  power_on 0
+  target_temperature 30.5
+  operational_mode 0
+  fan_speed 0
+  eco 1
+  swing_mode 0
+  turbo 0
+  fahrenheit 1
+  sleep 0
+  freeze_protection 0
+  follow_me 0
+  purifier 0
+  target_humidity 40
+  aux_heat 0
+  force_aux_heat 0
+  independent_aux_heat 0
+  frame aa24ac0000000000000240421e007f7f003000800400000000000000002800000000455a15
+
+setstate_below_17
+  # 16.0 -> alternate encoding, temperature_alt=(16-12)&0x1F=4
+  message_id_counter 55
+  beep_on 1
+  power_on 0
+  target_temperature 16.0
+  operational_mode 0
+  fan_speed 0
+  eco 1
+  swing_mode 0
+  turbo 0
+  fahrenheit 1
+  sleep 0
+  freeze_protection 0
+  follow_me 0
+  purifier 0
+  target_humidity 40
+  aux_heat 0
+  force_aux_heat 0
+  independent_aux_heat 0
+  frame aa24ac00000000000002404200007f7f0030008004000000000000000428000000005693e5
+
+setstate_16_5
+  # 16.5 -> alternate + half-degree bit on zero primary temp
+  message_id_counter 66
+  beep_on 1
+  power_on 0
+  target_temperature 16.5
+  operational_mode 0
+  fan_speed 0
+  eco 1
+  swing_mode 0
+  turbo 0
+  fahrenheit 1
+  sleep 0
+  freeze_protection 0
+  follow_me 0
+  purifier 0
+  target_humidity 40
+  aux_heat 0
+  force_aux_heat 0
+  independent_aux_heat 0
+  frame aa24ac00000000000002404210007f7f0030008004000000000000000428000000006782d5
+
+setstate_above_30
+  # 31.5 -> alternate (31-12)&0x1F=19 + half-degree bit
+  message_id_counter 77
+  beep_on 1
+  power_on 0
+  target_temperature 31.5
+  operational_mode 0
+  fan_speed 0
+  eco 1
+  swing_mode 0
+  turbo 0
+  fahrenheit 1
+  sleep 0
+  freeze_protection 0
+  follow_me 0
+  purifier 0
+  target_humidity 40
+  aux_heat 0
+  force_aux_heat 0
+  independent_aux_heat 0
+  frame aa24ac00000000000002404210007f7f003000800400000000000000132800000000781621
+
+setstate_negative
+  # -5.5 -> alt (-5-12)&0x1F=15 (two's-complement &), frac<0 sets no half bit
+  message_id_counter 88
+  beep_on 1
+  power_on 0
+  target_temperature -5.5
+  operational_mode 0
+  fan_speed 0
+  eco 1
+  swing_mode 0
+  turbo 0
+  fahrenheit 1
+  sleep 0
+  freeze_protection 0
+  follow_me 0
+  purifier 0
+  target_humidity 40
+  aux_heat 0
+  force_aux_heat 0
+  independent_aux_heat 0
+  frame aa24ac00000000000002404200007f7f0030008004000000000000000f2800000000893307
+
+setstate_all_flags
+  # every flag on except beep/eco/fahrenheit; mode 0x0A masked to 2; humidity raw 100
+  message_id_counter 99
+  beep_on 0
+  power_on 1
+  target_temperature 25.0
+  operational_mode 10
+  fan_speed 191
+  eco 0
+  swing_mode 3
+  turbo 1
+  fahrenheit 0
+  sleep 1
+  freeze_protection 1
+  follow_me 1
+  purifier 1
+  target_humidity 100
+  aux_heat 1
+  force_aux_heat 1
+  independent_aux_heat 1
+  frame aa24ac00000000000002400349bf7f7f0033a03803000000000000000064008008009a61f0
+
+setstate_humidity_mask
+  # target_humidity 0xFF masked to 0x7F
+  message_id_counter aa
+  beep_on 1
+  power_on 0
+  target_temperature 25.0
+  operational_mode 0
+  fan_speed 0
+  eco 1
+  swing_mode 0
+  turbo 0
+  fahrenheit 1
+  sleep 0
+  freeze_protection 0
+  follow_me 0
+  purifier 0
+  target_humidity 255
+  aux_heat 0
+  force_aux_heat 0
+  independent_aux_heat 0
+  frame aa24ac00000000000002404209007f7f003000800400000000000000007f00000000ab23a4
+
+setstate_id_wrap
+  # message id counter wraps: 0xFF + 1 & 0xFF = 0x00 in payload
+  message_id_counter ff
+  beep_on 1
+  power_on 0
+  target_temperature 25.0
+  operational_mode 0
+  fan_speed 0
+  eco 1
+  swing_mode 0
+  turbo 0
+  fahrenheit 1
+  sleep 0
+  freeze_protection 0
+  follow_me 0
+  purifier 0
+  target_humidity 40
+  aux_heat 0
+  force_aux_heat 0
+  independent_aux_heat 0
+  frame aa24ac00000000000002404209007f7f0030008004000000000000000028000000000007c2
+
+getcapabilities
+  # GetCapabilitiesCommand default
+  command get_capabilities
+  message_id_counter 01
+  additional 0
+  frame aa0fac00000000000003b50100020783
+
+getcapabilities_additional
+  # GetCapabilitiesCommand additional page
+  command get_capabilities
+  message_id_counter 02
+  additional 1
+  frame aa10ac00000000000003b5010101039fe7
+
+toggledisplay
+  # ToggleDisplayCommand default (beep on); QUERY frame type
+  command toggle_display
+  message_id_counter 03
+  beep_on 1
+  frame aa21ac00000000000003414200ff020002000000000000000000000000000004d9cd
+
+getgroupdata_g1
+  # GetGroupDataCommand group 1: payload 41 21 01 (40|group) + 16 zero bytes; QUERY frame
+  command get_group_data
+  message_id_counter 41
+  group 1
+  frame aa20ac0000000000000341210141000000000000000000000000000000004261ea
+
+getgroupdata_g11
+  # GetGroupDataCommand group 11: payload 41 21 01 (40|group) + 16 zero bytes; QUERY frame
+  command get_group_data
+  message_id_counter 4b
+  group 11
+  frame aa20ac000000000000034121014b000000000000000000000000000000004c81b6
+
+toggledisplay_mute
+  # ToggleDisplayCommand beep_off
+  command toggle_display
+  message_id_counter 04
+  beep_on 0
+  frame aa21ac00000000000003410200ff0200020000000000000000000000000000057f66
+
+getprops_ieco
+  # GetPropertiesCommand [IECO]; QUERY frame, data = b1 count [id LE16]
+  command get_properties
+  message_id_counter 10
+  query_ieco 1
+  query_out_silent 0
+  frame aa10ac00000000000003b101e30011edae
+
+getprops_pair
+  # GetPropertiesCommand [IECO, OUT_SILENT]
+  command get_properties
+  message_id_counter 11
+  query_ieco 1
+  query_out_silent 1
+  frame aa12ac00000000000003b102e300cd001226a4
+
+setprops_ieco_on_8
+  # SetPropertiesCommand {IECO: (8, True)}; CONTROL frame, 13-byte value [0, number, switch, zeros]
+  command set_properties
+  message_id_counter 12
+  set_ieco 1
+  ieco_number 8
+  ieco_on 1
+  set_out_silent 0
+  out_silent_on 0
+  frame aa1eac00000000000002b001e3000d00080100000000000000000000133146
+
+setprops_ieco_off_1
+  # SetPropertiesCommand {IECO: (1, False)}
+  command set_properties
+  message_id_counter 13
+  set_ieco 1
+  ieco_number 1
+  ieco_on 0
+  set_out_silent 0
+  out_silent_on 0
+  frame aa1eac00000000000002b001e3000d00010000000000000000000000143846
+
+setprops_outsilent_on
+  # SetPropertiesCommand {OUT_SILENT: True}; value = [3]
+  command set_properties
+  message_id_counter 14
+  set_ieco 0
+  ieco_number 1
+  ieco_on 0
+  set_out_silent 1
+  out_silent_on 1
+  frame aa12ac00000000000002b001cd000103152683
+
+setprops_outsilent_off
+  # SetPropertiesCommand {OUT_SILENT: False}; value = [0]
+  command set_properties
+  message_id_counter 15
+  set_ieco 0
+  ieco_number 1
+  ieco_on 0
+  set_out_silent 1
+  out_silent_on 0
+  frame aa12ac00000000000002b001cd00010016911a
+
+setprops_pair
+  # SetPropertiesCommand {IECO: (3, True), OUT_SILENT: True}; entry order follows Python dict insertion
+  command set_properties
+  message_id_counter 16
+  set_ieco 1
+  ieco_number 3
+  ieco_on 1
+  set_out_silent 1
+  out_silent_on 1
+  frame aa22ac00000000000002b002e3000d00030100000000000000000000cd000103176b37
+
+
+getprops_selfclean
+  # GetPropertiesCommand [SELF_CLEAN]
+  command get_properties
+  message_id_counter 20
+  query_ieco 0
+  query_out_silent 0
+  query_self_clean 1
+  query_breeze_away 0
+  query_breezeless 0
+  query_flash 0
+  frame aa10ac00000000000003b1013900212015
+
+getprops_all6
+  # GetPropertiesCommand [IECO, OUT_SILENT, SELF_CLEAN, BREEZE_AWAY, BREEZELESS, FLASH]; entry order follows the Python list
+  command get_properties
+  message_id_counter 21
+  query_ieco 1
+  query_out_silent 1
+  query_self_clean 1
+  query_breeze_away 1
+  query_breezeless 1
+  query_flash 1
+  frame aa1aac00000000000003b106e300cd00390042001800670022f1c3
+
+setprops_selfclean
+  # SetPropertiesCommand {SELF_CLEAN: True}; one-shot trigger, value = [1]
+  command set_properties
+  message_id_counter 22
+  set_ieco 0
+  ieco_number 1
+  ieco_on 0
+  set_out_silent 0
+  out_silent_on 0
+  set_self_clean 1
+  set_breeze_away 0
+  breeze_away_on 0
+  set_breezeless 0
+  breezeless_on 0
+  set_flash 0
+  flash_on 0
+  frame aa12ac00000000000002b00139000101236dc4
+
+setprops_breeze_away_on
+  # SetPropertiesCommand {BREEZE_AWAY: True}; value = [2]
+  command set_properties
+  message_id_counter 23
+  set_ieco 0
+  ieco_number 1
+  ieco_on 0
+  set_out_silent 0
+  out_silent_on 0
+  set_self_clean 0
+  set_breeze_away 1
+  breeze_away_on 1
+  set_breezeless 0
+  breezeless_on 0
+  set_flash 0
+  flash_on 0
+  frame aa12ac00000000000002b0014200010224a680
+
+setprops_breeze_away_off
+  # SetPropertiesCommand {BREEZE_AWAY: False}; value = [1] (explicit off)
+  command set_properties
+  message_id_counter 24
+  set_ieco 0
+  ieco_number 1
+  ieco_on 0
+  set_out_silent 0
+  out_silent_on 0
+  set_self_clean 0
+  set_breeze_away 1
+  breeze_away_on 0
+  set_breezeless 0
+  breezeless_on 0
+  set_flash 0
+  flash_on 0
+  frame aa12ac00000000000002b0014200010125ad79
+
+setprops_breezeless_on
+  # SetPropertiesCommand {BREEZELESS: True}; value = [1]
+  command set_properties
+  message_id_counter 25
+  set_ieco 0
+  ieco_number 1
+  ieco_on 0
+  set_out_silent 0
+  out_silent_on 0
+  set_self_clean 0
+  set_breeze_away 0
+  breeze_away_on 0
+  set_breezeless 1
+  breezeless_on 1
+  set_flash 0
+  flash_on 0
+  frame aa12ac00000000000002b001180001012667e8
+
+setprops_breezeless_off
+  # SetPropertiesCommand {BREEZELESS: False}; value = [0]
+  command set_properties
+  message_id_counter 26
+  set_ieco 0
+  ieco_number 1
+  ieco_on 0
+  set_out_silent 0
+  out_silent_on 0
+  set_self_clean 0
+  set_breeze_away 0
+  breeze_away_on 0
+  set_breezeless 1
+  breezeless_on 0
+  set_flash 0
+  flash_on 0
+  frame aa12ac00000000000002b0011800010027fd52
+
+setprops_flash_on
+  # SetPropertiesCommand {FLASH: True}; value = [1]
+  command set_properties
+  message_id_counter 27
+  set_ieco 0
+  ieco_number 1
+  ieco_on 0
+  set_out_silent 0
+  out_silent_on 0
+  set_self_clean 0
+  set_breeze_away 0
+  breeze_away_on 0
+  set_breezeless 0
+  breezeless_on 0
+  set_flash 1
+  flash_on 1
+  frame aa12ac00000000000002b00167000101287a84
+
+setprops_flash_off
+  # SetPropertiesCommand {FLASH: False}; value = [0]
+  command set_properties
+  message_id_counter 28
+  set_ieco 0
+  ieco_number 1
+  ieco_on 0
+  set_out_silent 0
+  out_silent_on 0
+  set_self_clean 0
+  set_breeze_away 0
+  breeze_away_on 0
+  set_breezeless 0
+  breezeless_on 0
+  set_flash 1
+  flash_on 0
+  frame aa12ac00000000000002b0016700010029e01e
+
+setprops_quad
+  # SetPropertiesCommand {SELF_CLEAN: True, BREEZE_AWAY: True, BREEZELESS: False, FLASH: True}; entry order follows Python dict insertion
+  command set_properties
+  message_id_counter 29
+  set_ieco 0
+  ieco_number 1
+  ieco_on 0
+  set_out_silent 0
+  out_silent_on 0
+  set_self_clean 1
+  set_breeze_away 1
+  breeze_away_on 1
+  set_breezeless 1
+  breezeless_on 0
+  set_flash 1
+  flash_on 1
+  frame aa1eac00000000000002b004390001014200010218000100670001012ac78d
+
+getprops_enums
+  # GetPropertiesCommand [RATE_SELECT, CASCADE, FRESH_AIR]
+  command get_properties
+  message_id_counter 30
+  query_ieco 0
+  query_out_silent 0
+  query_self_clean 0
+  query_breeze_away 0
+  query_breezeless 0
+  query_flash 0
+  query_rate_select 1
+  query_cascade 1
+  query_fresh_air 1
+  frame aa14ac00000000000003b103480059004b00315b11
+
+getprops_all9
+  # GetPropertiesCommand: every supported property in one query
+  command get_properties
+  message_id_counter 31
+  query_ieco 1
+  query_out_silent 1
+  query_self_clean 1
+  query_breeze_away 1
+  query_breezeless 1
+  query_flash 1
+  query_rate_select 1
+  query_cascade 1
+  query_fresh_air 1
+  frame aa20ac00000000000003b109e300cd003900420018006700480059004b00323f70
+
+setprops_rate_select_50
+  # SetPropertiesCommand {RATE_SELECT: 50}; raw gear byte value
+  command set_properties
+  message_id_counter 32
+  set_ieco 0
+  ieco_number 1
+  ieco_on 0
+  set_out_silent 0
+  out_silent_on 0
+  set_self_clean 0
+  set_breeze_away 0
+  set_breezeless 0
+  set_flash 0
+  set_rate_select 1
+  rate_select_value 50
+  frame aa12ac00000000000002b001480001323328b9
+
+setprops_rate_select_off
+  # SetPropertiesCommand {RATE_SELECT: 100}; off is the value 100
+  command set_properties
+  message_id_counter 33
+  set_ieco 0
+  ieco_number 1
+  ieco_on 0
+  set_out_silent 0
+  out_silent_on 0
+  set_self_clean 0
+  set_breeze_away 0
+  set_breezeless 0
+  set_flash 0
+  set_rate_select 1
+  rate_select_value 100
+  frame aa12ac00000000000002b00148000164347638
+
+setprops_cascade_up
+  # SetPropertiesCommand {CASCADE: 1}; encode [mode != 0 ? 1 : 0, mode]
+  command set_properties
+  message_id_counter 34
+  set_ieco 0
+  ieco_number 1
+  ieco_on 0
+  set_out_silent 0
+  out_silent_on 0
+  set_self_clean 0
+  set_breeze_away 0
+  set_breezeless 0
+  set_flash 0
+  set_cascade 1
+  cascade_mode 1
+  frame aa13ac00000000000002b00159000201013502fa
+
+setprops_cascade_down
+  command set_properties
+  message_id_counter 35
+  set_ieco 0
+  ieco_number 1
+  ieco_on 0
+  set_out_silent 0
+  out_silent_on 0
+  set_self_clean 0
+  set_breeze_away 0
+  set_breezeless 0
+  set_flash 0
+  set_cascade 1
+  cascade_mode 2
+  frame aa13ac00000000000002b001590002010236b545
+
+setprops_cascade_off
+  # mode 0 keeps the enable byte clear: [0, 0]
+  command set_properties
+  message_id_counter 36
+  set_ieco 0
+  ieco_number 1
+  ieco_on 0
+  set_out_silent 0
+  out_silent_on 0
+  set_self_clean 0
+  set_breeze_away 0
+  set_breezeless 0
+  set_flash 0
+  set_cascade 1
+  cascade_mode 0
+  frame aa13ac00000000000002b001590002000037d12b
+
+setprops_fresh_air_40
+  # SetPropertiesCommand {FRESH_AIR: 40}; encode [speed != 0 ? 1 : 0, speed, 0xFF]
+  command set_properties
+  message_id_counter 37
+  set_ieco 0
+  ieco_number 1
+  ieco_on 0
+  set_out_silent 0
+  out_silent_on 0
+  set_self_clean 0
+  set_breeze_away 0
+  set_breezeless 0
+  set_flash 0
+  set_fresh_air 1
+  fresh_air_speed 40
+  frame aa14ac00000000000002b0014b00030128ff38c51a
+
+setprops_fresh_air_off
+  command set_properties
+  message_id_counter 38
+  set_ieco 0
+  ieco_number 1
+  ieco_on 0
+  set_out_silent 0
+  out_silent_on 0
+  set_self_clean 0
+  set_breeze_away 0
+  set_breezeless 0
+  set_flash 0
+  set_fresh_air 1
+  fresh_air_speed 0
+  frame aa14ac00000000000002b0014b00030000ff39a562
+
+setprops_enum_trio
+  # three enum properties batched: rate 75, cascade down (2), fresh air 80
+  command set_properties
+  message_id_counter 39
+  set_ieco 0
+  ieco_number 1
+  ieco_on 0
+  set_out_silent 0
+  out_silent_on 0
+  set_self_clean 0
+  set_breeze_away 0
+  set_breezeless 0
+  set_flash 0
+  set_rate_select 1
+  rate_select_value 75
+  set_cascade 1
+  cascade_mode 2
+  set_fresh_air 1
+  fresh_air_speed 80
+  frame aa1dac00000000000002b0034800014b59000201024b00030150ff3a5c5c
+
+setprops_buzzer_on
+  # BUZZER (0x001A) encode: bool as one byte (msmart bytes(args[0:1]))
+  command set_properties
+  message_id_counter 3a
+  set_ieco 0
+  ieco_number 1
+  ieco_on 0
+  set_out_silent 0
+  out_silent_on 0
+  set_buzzer 1
+  buzzer_on 1
+  frame aa12ac00000000000002b0011a0001013b84b4
+
+setprops_buzzer_off
+  command set_properties
+  message_id_counter 3b
+  set_ieco 0
+  ieco_number 1
+  ieco_on 0
+  set_out_silent 0
+  out_silent_on 0
+  set_buzzer 1
+  buzzer_on 0
+  frame aa12ac00000000000002b0011a0001003cc375
+
+setprops_ieco1_buzzer_off
+  # iECO(1, on) plus the buzzer appended last (msmart dict insertion order)
+  command set_properties
+  message_id_counter 3c
+  set_ieco 1
+  ieco_number 1
+  ieco_on 1
+  set_out_silent 0
+  out_silent_on 0
+  set_buzzer 1
+  buzzer_on 0
+  frame aa22ac00000000000002b002e3000d000101000000000000000000001a0001003d3202
