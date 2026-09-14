@@ -5,10 +5,16 @@ name: Build
 on:
   push:
     branches: [main]
+    # version tags build the same firmware and additionally publish it as a
+    # GitHub release (see the tag-only steps below)
+    tags: ["v*"]
 
 jobs:
   build-x4:
     runs-on: ubuntu-latest
+    permissions:
+      # needed only by the tag-only publish step
+      contents: write
     steps:
       - uses: actions/checkout@v4
         with:
@@ -31,3 +37,31 @@ jobs:
           python -m pip install --upgrade pip "platformio==${PLATFORMIO_VERSION}"
       - name: Build firmware (dev env x4 + release env x4_release)
         run: pio run -e x4 -e x4_release
+      - name: Stage release assets (version tags only)
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: |
+          set -eu
+          VERSION="$(sed -n 's/.*kAppVersion *= *"\([^"]*\)".*/\1/p' src/AppVersion.h)"
+          test -n "$VERSION"
+          # the tag must carry exactly the version baked into the firmware
+          test "v${VERSION}" = "${GITHUB_REF_NAME}" || {
+            echo "tag ${GITHUB_REF_NAME} != AppVersion.h ${VERSION}" >&2; exit 1; }
+          mkdir -p dist
+          cp .pio/build/x4_release/firmware.bin "dist/freedea-x4-${VERSION}.bin"
+          sha256sum "dist/freedea-x4-${VERSION}.bin" > "dist/freedea-x4-${VERSION}.bin.sha256"
+      - name: Publish GitHub release (version tags only)
+        if: startsWith(github.ref, 'refs/tags/v')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -eu
+          VERSION="$(sed -n 's/.*kAppVersion *= *"\([^"]*\)".*/\1/p' src/AppVersion.h)"
+          # re-runs of an existing tag keep the release and replace its assets
+          gh release create "${GITHUB_REF_NAME}" \
+            --title "Freedea ${VERSION}" \
+            --notes-file RELEASE_NOTES.md \
+            "dist/freedea-x4-${VERSION}.bin" \
+            "dist/freedea-x4-${VERSION}.bin.sha256" \
+            || gh release upload "${GITHUB_REF_NAME}" \
+              "dist/freedea-x4-${VERSION}.bin" \
+              "dist/freedea-x4-${VERSION}.bin.sha256" --clobber
