@@ -51,6 +51,14 @@ jobs:
           # run inside dist/ so the checksum file names the plain asset file
           # (users verify with sha256sum -c next to the downloaded .bin)
           (cd dist && sha256sum "freedea-x4-${VERSION}.bin" > "freedea-x4-${VERSION}.bin.sha256")
+      - name: Build user manual PDF (version tags only)
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: |
+          set -eu
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends pandoc weasyprint fonts-noto-core
+          VERSION="$(sed -n 's/.*kAppVersion *= *"\([^"]*\)".*/\1/p' src/AppVersion.h)"
+          bin/build_manual_pdf.sh docs/USER_MANUAL.md "dist/freedea-user-manual-${VERSION}.pdf"
       - name: Publish GitHub release (version tags only)
         if: startsWith(github.ref, 'refs/tags/v')
         env:
@@ -64,6 +72,8 @@ jobs:
             --notes-file RELEASE_NOTES.md \
             "dist/freedea-x4-${VERSION}.bin" \
             "dist/freedea-x4-${VERSION}.bin.sha256" \
+            "dist/freedea-user-manual-${VERSION}.pdf" \
             || gh release upload "${GITHUB_REF_NAME}" \
               "dist/freedea-x4-${VERSION}.bin" \
-              "dist/freedea-x4-${VERSION}.bin.sha256" --clobber
+              "dist/freedea-x4-${VERSION}.bin.sha256" \
+              "dist/freedea-user-manual-${VERSION}.pdf" --clobber

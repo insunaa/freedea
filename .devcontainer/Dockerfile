@@ -9,7 +9,7 @@ COPY versions.env /tmp/pins.env
 # below fails the build if Ubuntu 26.04 ever ships a different one);
 # libmbedtls-dev links the software-AES host tests (Vault, MideaAC).
 # pandoc/weasyprint/poppler-utils build the user manual PDF
-# (bin/build_manual_pdf.sh); python3-pil + librsvg2-bin regenerate the control
+# (bin/build_manual_pdf.sh; fonts-noto-core provides its Noto Sans fonts); python3-pil + librsvg2-bin regenerate the control
 # icons (src/ui/icons.txt); python3-serial backs standalone capture scripts
 # against the X4 console (pio device monitor uses the PlatformIO venv's own).
 RUN apt-get update && apt-get install -y \
@@ -24,6 +24,7 @@ RUN apt-get update && apt-get install -y \
       pandoc \
       weasyprint \
       poppler-utils \
+      fonts-noto-core \
       python3-pil \
       librsvg2-bin \
       python3-serial \

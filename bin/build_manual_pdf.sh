@@ -9,6 +9,10 @@
 # LaTeX, no Node.js).
 set -euo pipefail
 
+# Deterministic text encoding regardless of the caller's locale; pandoc
+# mangles non-ASCII metadata under a C locale.
+export LANG=C.UTF-8 LC_ALL=C.UTF-8
+
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 INPUT="${1:-"$ROOT/docs/USER_MANUAL.md"}"
 OUTPUT="${2:-"$ROOT/docs/Freedea-User-Manual.pdf"}"
@@ -35,19 +39,19 @@ cat >"$CSS_FILE" <<CSS
   margin: 22mm 18mm 20mm 18mm;
   @bottom-left {
     content: "Freedea v${VERSION} User Manual";
-    font-family: "DejaVu Sans", sans-serif;
+    font-family: "Noto Sans", sans-serif;
     font-size: 7.5pt;
     color: #777;
   }
   @bottom-right {
     content: counter(page) " / " counter(pages);
-    font-family: "DejaVu Sans", sans-serif;
+    font-family: "Noto Sans", sans-serif;
     font-size: 7.5pt;
     color: #777;
   }
 }
 body {
-  font-family: "DejaVu Sans", sans-serif;
+  font-family: "Noto Sans", sans-serif;
   font-size: 9.5pt;
   line-height: 1.45;
   color: #111;
@@ -78,7 +82,7 @@ th, td {
 }
 th { background: #eee; }
 code {
-  font-family: "DejaVu Sans Mono", monospace;
+  font-family: "Noto Sans Mono", monospace;
   font-size: 8.5pt;
   background: #f2f2f2;
   padding: 0 2pt;
@@ -122,7 +126,7 @@ CSS
 pandoc "$INPUT" \
   --standalone \
   --toc --toc-depth=2 \
-  --metadata title="Freedea — User Manual" \
+  --metadata title="Freedea - User Manual" \
   --metadata subtitle="Open-source Wi-Fi controller for Midea air conditioners on the Xteink X4" \
   --metadata date="$DATE" \
   --metadata toc-title="Contents" \

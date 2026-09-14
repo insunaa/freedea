@@ -64,6 +64,7 @@ manual is not part of the firmware build).
 | pandoc | apt (3.7) | apt (added 2026-09-13) | `pandoc --version` |
 | weasyprint | apt (67) — PDF engine; no LaTeX, no Node.js | apt (added 2026-09-13) | `weasyprint --version` |
 | poppler-utils | apt (`pdfinfo`/`pdftoppm`, output sanity-check only) | apt (added 2026-09-13) | `pdfinfo -v` |
+| fonts-noto-core | apt (Noto Sans / Noto Sans Mono - the manual's PDF fonts) | apt + CI tag job (added 2026-09-14) | `fc-match "Noto Sans"` |
 
 ## E. Regeneration flows (optional dev tools; outputs are committed —
 regeneration never runs in CI or in the Docker build)

@@ -1,20 +1,35 @@
-# Freedea v1.0.0
+# Freedea v1.0.1
 
-First public release. Freedea turns an **Xteink X4** e-ink reader
-(ESP32-C3, 800×480) into a wall controller for **Midea air conditioners** over
-your LAN — no vendor cloud. See the [README](README.md) for the full feature
+Maintenance release over v1.0.0. The firmware is unchanged apart from the
+version string; this release covers documentation hardening and the new
+automated user-manual asset. See the [README](README.md) for the full feature
 list and [`docs/USER_MANUAL.md`](docs/USER_MANUAL.md) for the operating guide.
+
+## Changes since v1.0.0
+
+- **User manual PDF is now a release asset** (`freedea-user-manual-1.0.1.pdf`),
+  built automatically by CI from `docs/USER_MANUAL.md`.
+- **Manual PDF rendering fixed**: the PDF is set in Noto Sans (the font the
+  build actually installs) and the manual text is plain ASCII except degree
+  signs, so nothing can render as missing-glyph boxes.
+- **Flashing & recovery guidance** added to the README and the manual (§14):
+  Freedea never updates itself (no OTA, no SD-card flashing — USB reflash
+  only), and some marketplace "locked" X4 units have their USB serial link
+  fused off and cannot be recovered once flashed. Verify your unit with
+  `esptool.py --chip esp32-c3 --port <PORT> chip_id` before flashing.
 
 ## Assets
 
-- `freedea-x4-1.0.0.bin` — application image, flash at `0x10000` (the X4's
-  stock bootloader and partition table are kept):
+- `freedea-x4-1.0.1.bin` — application image, flash at `0x10000` (the X4's
+  stock bootloader and partition table are kept). Or use the browser flasher
+  at <https://crosspointreader.com/#flash-tools> (Xteink X4 -> Custom .bin):
 
   ```sh
-  esptool.py --chip esp32-c3 --port <PORT> write-flash 0x10000 freedea-x4-1.0.0.bin
+  esptool.py --chip esp32-c3 --port <PORT> write-flash 0x10000 freedea-x4-1.0.1.bin
   ```
 
-- `freedea-x4-1.0.0.bin.sha256` — integrity checksum.
+- `freedea-x4-1.0.1.bin.sha256` — integrity checksum.
+- `freedea-user-manual-1.0.1.pdf` — the user manual.
 
 ## Highlights
 
@@ -35,6 +50,8 @@ list and [`docs/USER_MANUAL.md`](docs/USER_MANUAL.md) for the operating guide.
 
 ## Measured numbers (`x4_release` build, ESP32-C3)
 
+Unchanged from v1.0.0 (identical firmware apart from the version string):
+
 | Metric | Value |
 | --- | --- |
 | Static RAM | 87,204 B (26.6 % of 320 KB DRAM) |
@@ -53,6 +70,12 @@ they motivate a keepalive change.
 
 ## Known limitations
 
+- **No self-update:** firmware changes always mean reflashing over USB
+  (browser flasher or esptool); there is no OTA path and no SD-card flash.
+- **"Locked" X4 units** -- some Alibaba/Taobao stock ships with the USB
+  serial link fused off -- can only ever be written once, through the
+  vendor's OTA tool. Flashing such a unit is unrecoverable; verify with
+  `esptool.py --chip esp32-c3 --port <PORT> chip_id` first.
 - Captive-portal login handles **HTTP** sign-in forms; HTTPS-only portals with
   certificate pinning are out of scope.
 - WireGuard needs reachable NTP and a route from your Wi-Fi network to the
