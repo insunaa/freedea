@@ -53,10 +53,11 @@ owner; this project speaks the air conditioner's documented-on-LAN protocol.*
 ## Try it
 
 > [!CAUTION]
-> **Freedea has no way to update itself: no OTA updates and no flashing from
-> the SD card.** Every firmware change — including future releases and any
-> recovery — requires connecting the X4 to a computer and reflashing (browser
-> tool or esptool, below). Back up the X4's stock firmware *before* flashing
+> **The first install requires connecting the X4 to a computer.** Once
+> Freedea v1.1.0 or later runs on it, future releases can be installed from
+> a microSD card (see “Update from the SD card” below) — but recovery from a
+> broken install always means USB. Back up the X4's
+> stock firmware *before* flashing
 > (e.g. `esptool.py --chip esp32-c3 read-flash 0 0x1000000 stock.bin`).
 >
 > **Some X4 units are "locked" and cannot be recovered once flashed.** A
@@ -85,9 +86,21 @@ esptool.py --chip esp32-c3 --port <PORT> write-flash 0x10000 freedea-x4-<version
 ```
 
 This writes the application only; the X4's stock bootloader and the standard
-C3 partition table (`nvs` @ `0x9000`, `otadata` @ `0xe000`) match Freedea's
-layout. If in doubt, flash the complete set from source with
-`pio run -e x4_release -t upload`.
+C3 dual-OTA partition table (`nvs` @ `0x9000`, `otadata` @ `0xe000`,
+`app0` @ `0x10000`) match Freedea's layout — the second app slot is what the
+SD-card update below installs into. If in doubt, flash the complete set from
+source with `pio run -e x4_release -t upload`.
+
+**Update from the SD card** (Freedea v1.1.0+): with the card in a computer
+(card reader — the X4 does not expose its SD over USB and has no download
+UI), copy `freedea-x4-<version>.bin` to the card root as `update.bin`, put
+the card back in the device, and power on while holding **Back + Up**. The
+panel stays dark while the image is validated and flashed into the spare
+app slot (~1 minute); the device reboots into the new firmware when it's
+done. Holding **Back + Up** at
+power-on with no `update.bin` present boots the previously installed
+firmware instead. Full details in the
+[user manual](docs/USER_MANUAL.md).
 
 On first boot the device opens a `Freedea-XXXX` provisioning hotspot (XXXX =
 the low MAC bytes); connect

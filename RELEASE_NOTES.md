@@ -1,35 +1,47 @@
-# Freedea v1.0.1
+# Freedea v1.1.0
 
-Maintenance release over v1.0.0. The firmware is unchanged apart from the
-version string; this release covers documentation hardening and the new
-automated user-manual asset. See the [README](README.md) for the full feature
-list and [`docs/USER_MANUAL.md`](docs/USER_MANUAL.md) for the operating guide.
+Feature release: **firmware updates from the microSD card**, no computer
+required. Copy a release `.bin` to the card root as `update.bin`, power on
+while holding **Back + Up**, and the device validates and flashes it into
+the spare OTA slot and reboots into it. Details in the
+[user manual](docs/USER_MANUAL.md) (§14) and the [README](README.md).
 
-## Changes since v1.0.0
+## Changes since v1.0.1
 
-- **User manual PDF is now a release asset** (`freedea-user-manual-1.0.1.pdf`),
-  built automatically by CI from `docs/USER_MANUAL.md`.
-- **Manual PDF rendering fixed**: the PDF is set in Noto Sans (the font the
-  build actually installs) and the manual text is plain ASCII except degree
-  signs, so nothing can render as missing-glyph boxes.
-- **Flashing & recovery guidance** added to the README and the manual (§14):
-  Freedea never updates itself (no OTA, no SD-card flashing — USB reflash
-  only), and some marketplace "locked" X4 units have their USB serial link
-  fused off and cannot be recovered once flashed. Verify your unit with
-  `esptool.py --chip esp32-c3 --port <PORT> chip_id` before flashing.
+- **SD-card self-update** (FreeInk SDK `RecoveryBoot`): with `update.bin` at
+  the SD root, holding **Back + Up** through a power-on validates the image
+  (magic, chip ID, segment table, XOR checksum, SHA256) and streams it into
+  the other app slot — the running firmware is untouched until the new image
+  is fully written and verified, so a bad or wrong file simply boots the
+  current firmware. On success the file is renamed to `update.bin.flashed`
+  and the device reboots into the new firmware. Holding **Back + Up** with
+  no `update.bin` present boots the previously installed image instead (the
+  escape hatch if an SD-updated image misbehaves). The panel stays dark
+  during the flash (about a minute; serial shows progress lines). Note the
+  copy step itself needs the card in a computer: the X4 does not expose its
+  SD card over USB and there is no in-app download.
+- **Partition table matches the stock dual-OTA X4 layout**: a second app
+  slot (`app1` @ `0x650000`) plus the stock spiffs/coredump regions, so
+  app-only flashing at `0x10000` keeps working and the SD update has a
+  spare slot to install into.
+- **FreeInk SDK bumped** `e0fcdb1` -> `2cca22f` (adds the `RecoveryBoot`
+  library; also upstream display/input/SD-card fixes since our previous
+  pin).
 
 ## Assets
 
-- `freedea-x4-1.0.1.bin` — application image, flash at `0x10000` (the X4's
+- `freedea-x4-1.1.0.bin` — application image. Existing installs are upgraded
+  in place by this version over USB once; from then on the SD-card path
+  above carries updates. For a first install, flash at `0x10000` (the X4's
   stock bootloader and partition table are kept). Or use the browser flasher
   at <https://crosspointreader.com/#flash-tools> (Xteink X4 -> Custom .bin):
 
   ```sh
-  esptool.py --chip esp32-c3 --port <PORT> write-flash 0x10000 freedea-x4-1.0.1.bin
+  esptool.py --chip esp32-c3 --port <PORT> write-flash 0x10000 freedea-x4-1.1.0.bin
   ```
 
-- `freedea-x4-1.0.1.bin.sha256` — integrity checksum.
-- `freedea-user-manual-1.0.1.pdf` — the user manual.
+- `freedea-x4-1.1.0.bin.sha256` — integrity checksum.
+- `freedea-user-manual-1.1.0.pdf` — the user manual.
 
 ## Highlights
 
@@ -50,12 +62,10 @@ list and [`docs/USER_MANUAL.md`](docs/USER_MANUAL.md) for the operating guide.
 
 ## Measured numbers (`x4_release` build, ESP32-C3)
 
-Unchanged from v1.0.0 (identical firmware apart from the version string):
-
 | Metric | Value |
 | --- | --- |
-| Static RAM | 87,204 B (26.6 % of 320 KB DRAM) |
-| App image | 1,472,391 B flash (22.5 % of partition) |
+| Static RAM | 87,260 B (26.6 % of 320 KB DRAM) |
+| App image | 1,484,033 B flash (22.6 % of partition) |
 | Free heap after boot | ≈ 77 KB (largest block ≈ 65 KB) |
 | Free-heap floor, idle | ≈ 70–73 KB (incl. connected Wi-Fi + AC polling) |
 | Button press → refresh complete | ≈ 0.6–1.1 s |
@@ -63,15 +73,19 @@ Unchanged from v1.0.0 (identical firmware apart from the version string):
 | — of which rasterize | ≈ 0.2–0.4 s @ 160 MHz (dropdown stepping: 0) |
 | Full refresh | ≈ 2.3 s (periodic / first draw only) |
 
-Heap figures are taken from the instrumented development build; the release
-build's static footprint is slightly smaller. Idle-current soak for
-WireGuard-on vs -off is still running — figures will follow in later notes if
-they motivate a keepalive change.
+Static RAM/app size are from this build; the SD-update hatch adds ~56 B of
+static RAM (heap figures from the v1.0.x soak, expected unchanged — the
+flasher runs once at boot before the app allocates anything). Idle-current
+soak for WireGuard-on vs -off is still running — figures will follow in
+later notes if they motivate a keepalive change.
 
 ## Known limitations
 
-- **No self-update:** firmware changes always mean reflashing over USB
-  (browser flasher or esptool); there is no OTA path and no SD-card flash.
+- **No update over Wi-Fi:** the SD-card path needs no network, and the
+  radio is never involved in flashing. Recovery from a broken install still
+  means USB (browser flasher or esptool).
+- **SD-card updates require Freedea v1.1.0 or later** — there is no
+  chicken-or-egg path; the first v1.1.0 install itself goes over USB.
 - **"Locked" X4 units** -- some Alibaba/Taobao stock ships with the USB
   serial link fused off -- can only ever be written once, through the
   vendor's OTA tool. Flashing such a unit is unrecoverable; verify with

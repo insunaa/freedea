@@ -1,7 +1,13 @@
 # Name,   Type, SubType, Offset,   Size
 nvs,      data, nvs,     0x9000,   0x5000
 otadata,  data, ota,     0xe000,   0x2000
-app0,     app,  ota_0,   0x10000,  0x640000
-# No internal filesystem partition: all persistent data (/.freedea/) lives on
-# the SD card via HalStorage/SDCardManager. Flash from 0x650000 onward is left
-# free for a future second OTA slot or LittleFS if ever needed.
+app0,     app,  ota_0,   0x10000,  0x640000,
+app1,     app,  ota_1,   0x650000, 0x640000,
+spiffs,   data, spiffs,  0xc90000, 0x360000,
+coredump, data, coredump,0xff0000, 0x10000,
+# Mirrors the stock X4 / CrossPoint Reader table: dual OTA slots so the
+# boot-time SD updater (freeink::recovery) can flash /update.bin into ota_1,
+# and freedea itself keeps running from ota_0 after a USB flash. The spiffs
+# and coredump regions exist only to keep the table byte-identical with the
+# stock layout (app-only flashing at 0x10000 stays correct); Freedea never
+# reads them — all persistent state lives on the SD card under /.freedea/.

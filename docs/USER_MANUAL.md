@@ -506,7 +506,7 @@ as described in sec. 12.
 ## 14. Building the Firmware (for developers)
 
 ```bash
-git clone --recursive https://github.com/<you>/freedea   # includes the FreeInk SDK submodule
+git clone --recursive https://github.com/insunaa/freedea   # includes the FreeInk SDK submodule
 cd freedea
 pio run -e x4            # build
 pio run -e x4 -t upload  # flash over USB
@@ -518,9 +518,7 @@ golden-vector host test suites on any Linux machine
 
 ### Flashing and updates
 
-**Freedea never updates itself.** There is no OTA update path and no way to
-flash from the microSD card. Every firmware change (new releases included)
-means connecting the device to a computer and reflashing over USB: either
+The **first install** of Freedea needs a computer and a USB cable: either
 the browser flasher at <https://crosspointreader.com/#flash-tools> (choose
 Xteink X4, then "Custom .bin") or esptool. Back up the stock firmware
 before the first flash:
@@ -543,6 +541,38 @@ esptool.py --chip esp32-c3 --port <PORT> chip_id
 
 If that command does not respond, the unit is locked and must not be
 flashed.
+
+### Updating from the microSD card
+
+Once Freedea v1.1.0 or later is running, later releases can be installed
+from the microSD card without reflashing over USB:
+
+1. Take the microSD card out of the device and put it in a computer (a
+   card reader works; the X4 does not expose its SD card over USB, and the
+   firmware has no download feature of its own).
+2. Download `freedea-x4-<version>.bin` from the GitHub releases page, copy
+   it to the **root** of the card, rename it to `update.bin`, and put the
+   card back into the device.
+3. Turn the device fully off (hold power >= 3 s). Then hold **Back** +
+   **Up**, press power to turn the device on, and keep Back + Up held for
+   a few seconds.
+4. Wait. The screen stays dark for up to a minute -- that is the flash in
+   progress (progress lines only go to the serial port, if one is
+   attached). The device then reboots into the new firmware on its own.
+
+The new image is validated (magic, chip, checksums) before anything is
+written, and goes into a second app slot, so the currently installed
+firmware stays untouched. A bad or wrong `update.bin` is rejected and the
+device just boots normally. On success the file is renamed to
+`update.bin.flashed` so the update cannot retrigger by accident.
+
+Holding **Back** + **Up** at power-on with **no `update.bin` on the card**
+boots the previously installed firmware instead -- the escape hatch if an
+SD-updated image misbehaves. A USB reflash always installs into the first
+slot and boots that by default.
+
+There is still no update over Wi-Fi: the SD card path needs no network,
+and the radio is never involved in flashing.
 
 ---
 

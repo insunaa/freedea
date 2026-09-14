@@ -12,6 +12,7 @@
 #include <FreeInkUIDisplayTarget.h>
 #include <InputManager.h>
 #include <PowerManager.h>
+#include <RecoveryBoot.h>
 #include <driver/gpio.h>
 #include <esp_heap_caps.h>
 
@@ -238,6 +239,18 @@ void setup() {
   BoardConfig::holdPowerRails();
   Serial.begin(115200);
   MEM_STAGE("entry");
+  // SD self-update hatch (FreeInk RecoveryBoot): Back+Up held through a reset
+  // flashes /update.bin from the SD root into the other OTA slot and reboots
+  // into it; with no update file it falls back to switching back to ota_0.
+  // renameOnSuccess stops a combo held across the post-flash reboot from
+  // reflashing the same image. Must run before display/app bring-up; the
+  // check itself mounts nothing unless the combo is held, so a normal boot
+  // only pays ~100 ms of button debounce sampling. Serial is up first so the
+  // flash progress (one line per decile) is visible; the e-ink panel stays
+  // dark during the flash (it is not initialized yet).
+  freeink::recovery::SdUpdateOptions sdUpdate;
+  sdUpdate.renameOnSuccess = true;
+  freeink::recovery::checkBootCombo(sdUpdate);
   // SD mounts before the display: the display is write-only, so EpdBus begins
   // the shared SPI bus with MISO unattached, and arduino-esp32's SPIClass::begin()
   // ignores the pins of every call after the first. Mounting SD first wins

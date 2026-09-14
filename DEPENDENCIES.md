@@ -9,7 +9,8 @@ from it. When adding a tool, update `versions.env`, this file and both
 Dockerfiles in the same change.
 
 Pinned in `versions.env`: PlatformIO `6.1.19`, clang-format `21.1.8`, platform
-`pioarduino 55.03.37`, ArduinoJson `7.4.2`, FreeInk SDK submodule @ `e0fcdb1`,
+`pioarduino 55.03.37`, ArduinoJson `7.4.2`, FreeInk SDK submodule @ `2cca22f`
+(bumped from `e0fcdb1` for the `RecoveryBoot` SD-card firmware flasher),
 msmart vectors @ `d7db53bc47`, Lucide icons @ `a79b2d1` (each pinned so CI,
 devcontainer, and regenerated artifacts agree). CI `build.yml` fails on drift
 against the pins that must stay inline in `platformio.ini` (PlatformIO INI has
@@ -28,7 +29,7 @@ Consumers: `.devcontainer` (all), `docker/Dockerfile` (all), CI `build.yml`
 | build-essential (g++) | apt | apt | `g++ --version` |
 | python3-venv, python3-pip | apt | apt | `python3 -m venv --help` |
 | PlatformIO | **6.1.19** (`PLATFORMIO_VERSION`), venv at `/opt/platformio`, `pio` symlinked into PATH | Dockerfile, from `versions.env` (official installer is broken on Python 3.14 — venv route) | `pio --version` |
-| FreeInk SDK submodule | gitlink `vendor/freeink-sdk` @ `e0fcdb1…` (authoritative; mirrored as `FREEINK_SDK_REF` in `versions.env`, CI-enforced — `.gitmodules` only stores path+URL, never the SHA) | `git submodule update --init --recursive` | `git rev-parse HEAD:vendor/freeink-sdk` |
+| FreeInk SDK submodule | gitlink `vendor/freeink-sdk` @ `2cca22f…` (authoritative; mirrored as `FREEINK_SDK_REF` in `versions.env`, CI-enforced — `.gitmodules` only stores path+URL, never the SHA) | `git submodule update --init --recursive` | `git rev-parse HEAD:vendor/freeink-sdk` |
 | pio-managed toolchain | platform `pioarduino 55.03.37`, `toolchain-riscv32-esp`, Arduino framework 3.3.7 core, penv (`littlefs-python>=0.16.0`, `fatfs-ng>=0.1.14`) | auto-downloaded by first `pio run` into `~/.platformio` (~7 GB) | `pio run -e x4` |
 | ArduinoJson | 7.4.2 | `lib_deps` (pio-managed) | — |
 
