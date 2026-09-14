@@ -1,9 +1,10 @@
 name: Format
 
+# push-only: no pull_request trigger — workflows must never run on
+# third-party PRs (untrusted code + secrets exposure)
 on:
   push:
     branches: [main]
-  pull_request:
 
 jobs:
   clang-format:

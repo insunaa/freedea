@@ -1,0 +1,6 @@
+# Verbatim upstream license-reference sources (e.g. lwip-init.c, extracted
+# for the license-text regeneration in bin/gen_license_texts.py) must keep
+# their original form. This nested config disables clang-format for the
+# whole subtree — same convention as lib/QrCode/.clang-format.
+DisableFormat: true
+SortIncludes: Never
