@@ -52,7 +52,32 @@ owner; this project speaks the air conditioner's documented-on-LAN protocol.*
 
 ## Try it
 
-Release assets contain a prebuilt `freedea-x4-<version>.bin`. Flash it with
+> [!CAUTION]
+> **Freedea has no way to update itself: no OTA updates and no flashing from
+> the SD card.** Every firmware change — including future releases and any
+> recovery — requires connecting the X4 to a computer and reflashing (browser
+> tool or esptool, below). Back up the X4's stock firmware *before* flashing
+> (e.g. `esptool.py --chip esp32-c3 read-flash 0 0x1000000 stock.bin`).
+>
+> **Some X4 units are "locked" and cannot be recovered once flashed.** A
+> fraction of units sold through marketplaces such as Alibaba or Taobao ship
+> with the USB serial link fused off: esptool cannot reach them, and they can
+> be written exactly once, through the vendor's OTA tool. On such a device
+> flashing Freedea is irreversible — there is no path back to the factory
+> reader software or to any future firmware, including later Freedea
+> versions. Before flashing anything, verify esptool can talk to your unit
+> (e.g. `esptool.py --chip esp32-c3 --port <PORT> chip_id` responds); if it
+> does not, the unit is locked and must not be flashed. (The browser flasher
+> below rides the same serial link, so it cannot reach locked units either.)
+
+Release assets contain a prebuilt `freedea-x4-<version>.bin`.
+
+**Flash from the browser** (recommended, no toolchain): open the CrossPoint
+Reader [web flasher](https://crosspointreader.com/#flash-tools) in Chrome,
+Edge or Firefox, choose **Xteink X4**, select **Custom .bin**, upload
+`freedea-x4-<version>.bin`, and press **Flash**.
+
+**Flash from the command line** with
 [esptool](https://github.com/esptool/esptool):
 
 ```sh
