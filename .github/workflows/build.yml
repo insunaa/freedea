@@ -48,7 +48,9 @@ jobs:
             echo "tag ${GITHUB_REF_NAME} != AppVersion.h ${VERSION}" >&2; exit 1; }
           mkdir -p dist
           cp .pio/build/x4_release/firmware.bin "dist/freedea-x4-${VERSION}.bin"
-          sha256sum "dist/freedea-x4-${VERSION}.bin" > "dist/freedea-x4-${VERSION}.bin.sha256"
+          # run inside dist/ so the checksum file names the plain asset file
+          # (users verify with sha256sum -c next to the downloaded .bin)
+          (cd dist && sha256sum "freedea-x4-${VERSION}.bin" > "freedea-x4-${VERSION}.bin.sha256")
       - name: Publish GitHub release (version tags only)
         if: startsWith(github.ref, 'refs/tags/v')
         env:
